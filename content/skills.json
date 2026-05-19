@@ -1,0 +1,10 @@
+[
+  { "name": "JavaScript / TypeScript", "level": 90, "category": "前端" },
+  { "name": "React / Vue", "level": 85, "category": "前端" },
+  { "name": "HTML / CSS / Tailwind", "level": 90, "category": "前端" },
+  { "name": "Node.js", "level": 75, "category": "后端" },
+  { "name": "Python", "level": 70, "category": "后端" },
+  { "name": "Git / GitHub", "level": 85, "category": "工具" },
+  { "name": "Docker", "level": 60, "category": "工具" },
+  { "name": "SQL / MongoDB", "level": 65, "category": "数据库" }
+]

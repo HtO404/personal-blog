@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Experience from '../components/Experience.astro';
+import Skills from '../components/Skills.astro';
+import Projects from '../components/Projects.astro';
+import Contact from '../components/Contact.astro';
+
+const title = "如从 | 个人博客";
+const description = "欢迎来到我的个人博客，展示我的技术经验与项目作品";
+---
+
+<Layout title={title} description={description}>
+  <main class="min-h-screen bg-dark-950 text-gray-100">
+    <Hero />
+    <About />
+    <Experience />
+    <Skills />
+    <Projects />
+    <Contact />
+  </main>
+</Layout>

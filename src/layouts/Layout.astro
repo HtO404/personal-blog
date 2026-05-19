@@ -1,0 +1,87 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "个人博客 - 展示技术经验与项目作品" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="bg-dark-950 text-gray-100 antialiased">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-dark-950/80 backdrop-blur-md border-b border-dark-800">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <a href="/" class="text-xl font-bold text-primary-400 hover:text-primary-300 transition-colors">
+            如从
+          </a>
+          <div class="hidden md:flex items-center space-x-8">
+            <a href="#about" class="text-gray-300 hover:text-white transition-colors">关于</a>
+            <a href="#experience" class="text-gray-300 hover:text-white transition-colors">经历</a>
+            <a href="#skills" class="text-gray-300 hover:text-white transition-colors">技能</a>
+            <a href="#projects" class="text-gray-300 hover:text-white transition-colors">项目</a>
+            <a href="#contact" class="text-gray-300 hover:text-white transition-colors">联系</a>
+          </div>
+          <!-- Mobile menu button -->
+          <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-dark-800 transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="hidden md:hidden bg-dark-900 border-b border-dark-800">
+        <div class="px-4 py-3 space-y-2">
+          <a href="#about" class="block py-2 text-gray-300 hover:text-white transition-colors">关于</a>
+          <a href="#experience" class="block py-2 text-gray-300 hover:text-white transition-colors">经历</a>
+          <a href="#skills" class="block py-2 text-gray-300 hover:text-white transition-colors">技能</a>
+          <a href="#projects" class="block py-2 text-gray-300 hover:text-white transition-colors">项目</a>
+          <a href="#contact" class="block py-2 text-gray-300 hover:text-white transition-colors">联系</a>
+        </div>
+      </div>
+    </nav>
+    <slot />
+    <footer class="bg-dark-900 border-t border-dark-800 py-8">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p class="text-gray-400">
+          &copy; {new Date().getFullYear()} 如从. All rights reserved.
+        </p>
+        <p class="text-gray-500 text-sm mt-2">
+          Built with <a href="https://astro.build" class="text-primary-400 hover:text-primary-300">Astro</a> & <a href="https://tailwindcss.com" class="text-primary-400 hover:text-primary-300">Tailwind CSS</a>
+        </p>
+      </div>
+    </footer>
+    <script>
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      mobileMenuBtn?.addEventListener('click', () => {
+        mobileMenu?.classList.toggle('hidden');
+      });
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href')!);
+          target?.scrollIntoView({ behavior: 'smooth' });
+          mobileMenu?.classList.add('hidden');
+        });
+      });
+    </script>
+  </body>
+</html>
