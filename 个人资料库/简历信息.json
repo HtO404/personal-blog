@@ -1,0 +1,58 @@
+{
+  "name": "如从",
+  "phone": "173 6404 6011",
+  "email": "17398206513@163.com",
+  "education": {
+    "school": "个人简历学院",
+    "major": "计算机科学与技术",
+    "degree": "本科",
+    "graduationYear": "2026",
+    "gpa": "专业前5%",
+    "awards": ["国家奖学金候选人", "校级甲等奖学金", "ACM程序设计竞赛省赛铜奖", "专业一等奖学金"]
+  },
+  "experience": [
+    {
+      "company": "某科技公司",
+      "role": "测试开发实习生",
+      "period": "2025.01 - 2025.06",
+      "type": "实习",
+      "description": "SaaS+App+Web 产品测试",
+      "responsibilities": [
+        "参与 PRD 评审，从测试角度分析需求的可测试性和测试策略",
+        "编写自动化测试脚本，使用 uiautomator2、Selenium 提升回归效率",
+        "执行功能测试、接口测试，使用 Apifox、Postman 进行接口测试",
+        "使用 TPAD 提交缺陷跟踪，定位并推动缺陷解决",
+        "协调开发、运维定位缺陷，分析日志提升缺陷定位效率",
+        "使用产品缺陷和追述工具，从多角度发现并分类缺陷"
+      ]
+    },
+    {
+      "company": "HP",
+      "role": "测试实习生",
+      "period": "2024.09 - 2024.12",
+      "type": "实习",
+      "description": "HP Smart 打印机产品测试",
+      "responsibilities": [
+        "搭建测试环境，配置模拟器和真机测试账号",
+        "负责 HP 打印机核心功能测试，覆盖 Android/iOS/Win/macOS 多平台",
+        "编写执行测试用例，验证打印机配置、打印等核心功能稳定性",
+        "编写学习手册和测试用例，同步新版本回归测试效率"
+      ]
+    }
+  ],
+  "skills": {
+    "programming": ["Python", "C"],
+    "automation": ["uiautomator2", "Selenium"],
+    "testing": ["接口测试", "串口调试", "测试用例设计", "缺陷管理", "MAVLink 无人机通信协议", "地面站测试"],
+    "tools": ["JIRA", "日志分析工具", "Xmind", "Postman", "JMeter", "Apifox", "DBeaver", "TPAD"],
+    "platform": ["Linux 基础操作", "Android/iOS/Win/macOS 多平台测试"]
+  },
+  "certifications": ["软件评测师（工信部人才评价服务）", "普通话二甲"],
+  "projects": [
+    {
+      "name": "ACM程序设计竞赛",
+      "role": "参赛者",
+      "achievement": "省赛铜奖"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "title": "个人博客系统",
+    "description": "使用 Astro + React + Tailwind CSS 构建的现代化静态博客，支持 Markdown 写作和自动部署。",
+    "tags": ["Astro", "React", "Tailwind"],
+    "link": "#",
+    "github": "#"
+  },
+  {
+    "title": "任务管理应用",
+    "description": "基于 React 的任务管理应用，支持任务分类、优先级设置和数据持久化。",
+    "tags": ["React", "TypeScript", "Local Storage"],
+    "link": "#",
+    "github": "#"
+  },
+  {
+    "title": "数据可视化面板",
+    "description": "使用 ECharts 和 Vue 构建的数据可视化仪表盘，支持多种图表类型和实时数据更新。",
+    "tags": ["Vue", "ECharts", "WebSocket"],
+    "link": "#",
+    "github": "#"
+  }
+]

@@ -1,61 +1,127 @@
 ---
-// About 组件 - 个人简介
+// About 组件 - 高级个人简介
+const stats = [
+  { value: "3+", label: "年开发经验", suffix: "" },
+  { value: "15+", label: "完成项目", suffix: "" },
+  { value: "8+", label: "技术栈", suffix: "" },
+  { value: "100", label: "%", suffix: "%" }
+];
+
+const highlights = [
+  { icon: "code", title: "前端开发", desc: "精通 React/Vue，打造流畅交互体验" },
+  { icon: "server", title: "后端能力", desc: "Node.js/Python，全栈开发无压力" },
+  { icon: "lightbulb", title: "问题解决", desc: "善于分析，快速定位并解决技术难题" },
+  { icon: "users", title: "团队协作", desc: "良好沟通，高效配合完成项目目标" }
+];
 ---
 
-<section id="about" class="py-20 px-4">
-  <div class="max-w-4xl mx-auto">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
-      <span class="text-primary-400">关于</span>我
-    </h2>
-    
-    <div class="grid md:grid-cols-2 gap-8 items-center">
-      <!-- 左侧：简介文字 -->
-      <div class="space-y-4 text-gray-300">
-        <p class="text-lg leading-relaxed">
-          你好！我是<strong class="text-white">如从</strong>，一名热爱技术的开发者。
-        </p>
-        <p class="leading-relaxed">
-          我专注于前端开发和用户体验设计，善于将复杂的技术问题转化为简洁优雅的解决方案。
-        </p>
-        <p class="leading-relaxed">
-          在工作中，我追求代码质量和工程效率的平衡，相信好的产品源于对细节的执着追求。
-        </p>
-        
-        <!-- 快速信息 -->
-        <div class="pt-4 space-y-2">
-          <div class="flex items-center gap-2 text-gray-400">
-            <svg class="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span>中国</span>
-          </div>
-          <div class="flex items-center gap-2 text-gray-400">
-            <svg class="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            <span>前端开发 / 全栈开发</span>
-          </div>
+<section id="about" class="py-24 px-4 relative">
+  <div class="max-w-6xl mx-auto">
+    <!-- 标题 -->
+    <div class="text-center mb-16 reveal">
+      <p class="text-primary-400 text-sm font-medium tracking-widest uppercase mb-4">About Me</p>
+      <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+        关于<span class="gradient-text">我</span>
+      </h2>
+      <p class="text-slate-400 max-w-2xl mx-auto text-lg">
+        一名热爱技术的前端开发者，专注于创造优秀的用户体验和高质量的代码。
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <!-- 左侧：详细介绍 -->
+      <div class="space-y-6 reveal">
+        <div class="prose prose-invert prose-lg max-w-none">
+          <p class="text-slate-300 leading-relaxed">
+            你好！我是<strong class="text-white">如从</strong>，一名充满热情的前端开发工程师。
+            在过去的几年里，我一直专注于构建高质量、高性能的 Web 应用程序。
+          </p>
+          <p class="text-slate-400 leading-relaxed">
+            我相信好的代码不仅要能运行，还要易于维护。在工作中，我注重代码质量、
+            性能优化和用户体验，力求在每一个细节上做到精益求精。
+          </p>
+          <p class="text-slate-400 leading-relaxed">
+            除了编码，我也热衷于学习新技术和分享知识。我相信持续学习是保持竞争力的关键，
+            而分享则能让我对知识的理解更加深入。
+          </p>
+        </div>
+
+        <!-- 亮点卡片 -->
+        <div class="grid grid-cols-2 gap-4 pt-4">
+          {highlights.map((item) => (
+            <div class="group p-4 rounded-xl bg-white/5 border border-white/10 hover:border-primary-500/30 hover:bg-white/10 transition-all">
+              <div class="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                {item.icon === 'code' && (
+                  <svg class="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                  </svg>
+                )}
+                {item.icon === 'server' && (
+                  <svg class="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                  </svg>
+                )}
+                {item.icon === 'lightbulb' && (
+                  <svg class="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                )}
+                {item.icon === 'users' && (
+                  <svg class="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                )}
+              </div>
+              <h3 class="text-white font-semibold mb-1">{item.title}</h3>
+              <p class="text-slate-400 text-sm">{item.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
-      
-      <!-- 右侧：统计卡片 -->
-      <div class="grid grid-cols-2 gap-4">
-        <div class="bg-dark-800/50 rounded-xl p-6 border border-dark-700 hover:border-primary-500/50 transition-colors">
-          <div class="text-3xl font-bold text-primary-400 mb-1">3+</div>
-          <div class="text-gray-400 text-sm">年开发经验</div>
+
+      <!-- 右侧：统计数据 -->
+      <div class="reveal" style="transition-delay: 0.2s;">
+        <div class="relative">
+          <!-- 装饰背景 -->
+          <div class="absolute -inset-4 bg-gradient-to-r from-primary-500/10 to-primary-600/10 rounded-2xl blur-2xl"></div>
+          
+          <div class="relative grid grid-cols-2 gap-4">
+            {stats.map((stat, index) => (
+              <div 
+                class="group p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary-500/30 hover:bg-white/10 transition-all text-center"
+                style={`animation-delay: ${index * 0.1}s`}
+              >
+                <div class="text-4xl md:text-5xl font-bold text-white mb-2 group-hover:text-primary-400 transition-colors">
+                  {stat.value}
+                </div>
+                <div class="text-slate-400 text-sm">{stat.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
-        <div class="bg-dark-800/50 rounded-xl p-6 border border-dark-700 hover:border-primary-500/50 transition-colors">
-          <div class="text-3xl font-bold text-primary-400 mb-1">10+</div>
-          <div class="text-gray-400 text-sm">完成项目</div>
-        </div>
-        <div class="bg-dark-800/50 rounded-xl p-6 border border-dark-700 hover:border-primary-500/50 transition-colors">
-          <div class="text-3xl font-bold text-primary-400 mb-1">5+</div>
-          <div class="text-gray-400 text-sm">技术栈</div>
-        </div>
-        <div class="bg-dark-800/50 rounded-xl p-6 border border-dark-700 hover:border-primary-500/50 transition-colors">
-          <div class="text-3xl font-bold text-primary-400 mb-1">∞</div>
-          <div class="text-gray-400 text-sm">学习热情</div>
+
+        <!-- 联系信息 -->
+        <div class="mt-8 p-6 rounded-2xl bg-gradient-to-br from-primary-500/10 to-primary-600/10 border border-primary-500/20">
+          <h3 class="text-white font-semibold mb-4">联系我</h3>
+          <div class="space-y-3">
+            <a href="mailto:email@example.com" class="flex items-center gap-3 text-slate-400 hover:text-primary-400 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-primary-500/20 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <span class="text-sm">email@example.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-slate-400">
+              <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <span class="text-sm">中国 · 北京</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

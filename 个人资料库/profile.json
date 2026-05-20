@@ -1,0 +1,81 @@
+{
+  "name": "如从",
+  "title": "测试开发工程师 / 前端开发者",
+  "location": "中国",
+  "phone": "173 6404 6011",
+  "email": "17398206513@163.com",
+  "education": {
+    "school": "个人简历学院",
+    "major": "计算机科学与技术",
+    "degree": "本科",
+    "graduationYear": "2026",
+    "gpa": "专业前5%",
+    "awards": ["国家奖学金候选人", "校级甲等奖学金", "ACM程序设计竞赛省赛铜奖", "专业一等奖学金"]
+  },
+  "experience": [
+    {
+      "company": "某科技公司",
+      "role": "测试开发实习生",
+      "period": "2025.01 - 2025.06",
+      "type": "实习",
+      "description": "SaaS+App+Web 产品测试",
+      "highlights": ["uiautomator2/Selenium 自动化测试", "Apifox/Postman 接口测试", "TPAD 缺陷管理", "日志分析"],
+      "responsibilities": [
+        "参与 PRD 评审，从测试角度分析需求可测试性",
+        "编写自动化测试脚本，提升回归效率",
+        "执行功能测试与接口测试，验证接口正确性",
+        "使用 TPAD 提交跟踪缺陷，推动缺陷闭环",
+        "协调开发运维定位缺陷，分析日志提升定位效率"
+      ]
+    },
+    {
+      "company": "HP",
+      "role": "测试实习生",
+      "period": "2024.09 - 2024.12",
+      "type": "实习",
+      "description": "HP Smart 打印机多平台测试",
+      "highlights": ["Android/iOS/Win/macOS 多平台", "Postman/JMeter 接口测试"],
+      "responsibilities": [
+        "搭建测试环境，配置模拟器和真机账号",
+        "负责 HP 打印机核心功能测试，覆盖多平台",
+        "编写执行测试用例，验证核心功能稳定性",
+        "编写学习手册，同步新版本回归测试效率"
+      ]
+    }
+  ],
+  "skills": [
+    { "name": "Python", "level": 85, "category": "编程语言" },
+    { "name": "C", "level": 70, "category": "编程语言" },
+    { "name": "JavaScript / TypeScript", "level": 75, "category": "编程语言" },
+    { "name": "uiautomator2 / Selenium", "level": 80, "category": "自动化工具" },
+    { "name": "Postman / JMeter / Apifox", "level": 85, "category": "测试工具" },
+    { "name": "Linux 基础操作", "level": 70, "category": "系统操作" },
+    { "name": "React / Vue", "level": 70, "category": "前端框架" },
+    { "name": "Git / GitHub", "level": 80, "category": "工具" },
+    { "name": "MAVLink 无人机通信协议", "level": 60, "category": "专业技能" },
+    { "name": "测试用例设计 / 缺陷管理", "level": 85, "category": "专业技能" }
+  ],
+  "certifications": ["软件评测师（工信部）", "普通话二甲"],
+  "projects": [
+    {
+      "title": "个人博客系统",
+      "description": "使用 Astro + React + Tailwind CSS 构建的现代化静态博客，支持 Markdown 写作和自动部署。",
+      "tags": ["Astro", "React", "Tailwind"],
+      "link": "#",
+      "github": "#"
+    },
+    {
+      "title": "任务管理应用",
+      "description": "基于 React 的任务管理应用，支持任务分类、优先级设置和数据持久化。",
+      "tags": ["React", "TypeScript", "Local Storage"],
+      "link": "#",
+      "github": "#"
+    },
+    {
+      "title": "ACM程序设计竞赛",
+      "description": "省级程序设计竞赛",
+      "tags": ["算法", "数据结构"],
+      "achievement": "省赛铜奖"
+    }
+  ]
+}
