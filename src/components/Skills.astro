@@ -1,35 +1,43 @@
 ---
-// Skills — card-white 对角渐变 + card-dark 深层阴影
+// Skills — 真实数据: python, c, 测试工具等
 const categories = [
   {
-    name: "前端",
+    name: "编程语言",
     skills: [
-      { name: "React / Next.js", level: 95, color: "#61DAFB" },
-      { name: "TypeScript", level: 90, color: "#3178C6" },
-      { name: "Vue.js", level: 85, color: "#4FC08D" },
-      { name: "HTML / CSS / Tailwind", level: 95, color: "#06B6D4" },
-      { name: "JavaScript", level: 92, color: "#F7DF1E" },
+      { name: "Python", level: 85, color: "#3776AB" },
+      { name: "C", level: 70, color: "#555555" },
+      { name: "JavaScript / TypeScript", level: 90, color: "#F7DF1E" },
     ]
   },
   {
-    name: "后端",
+    name: "自动化测试",
     skills: [
-      { name: "Node.js", level: 80, color: "#339933" },
-      { name: "Python", level: 75, color: "#3776AB" },
-      { name: "GraphQL", level: 72, color: "#E10098" },
-      { name: "PostgreSQL", level: 70, color: "#336791" },
+      { name: "uiautomator2", level: 80, color: "#34D399" },
+      { name: "Selenium", level: 75, color: "#43B02A" },
+      { name: "接口测试 (Apifox/Postman)", level: 85, color: "#FF6C37" },
     ]
   },
   {
-    name: "工具",
+    name: "测试工具链",
     skills: [
-      { name: "Git / GitHub", level: 90, color: "#F05032" },
-      { name: "Docker", level: 70, color: "#2496ED" },
-      { name: "Webpack / Vite", level: 85, color: "#8DD6F9" },
-      { name: "Jest / Cypress", level: 78, color: "#C21325" },
+      { name: "JIRA / TPAD", level: 80, color: "#0052CC" },
+      { name: "JMeter", level: 70, color: "#D33833" },
+      { name: "DBeaver (SQL)", level: 65, color: "#336791" },
+      { name: "日志分析", level: 75, color: "#6B7280" },
+    ]
+  },
+  {
+    name: "平台 & 协议",
+    skills: [
+      { name: "Linux 基础", level: 65, color: "#FCC624" },
+      { name: "多平台测试", level: 80, color: "#34D399" },
+      { name: "MAVLink 协议", level: 60, color: "#F97316" },
+      { name: "串口调试", level: 65, color: "#6366F1" },
     ]
   },
 ];
+
+const tools = ["Xmind", "Postman", "Apifox", "JMeter", "DBeaver", "Git", "VS Code", "PyCharm"];
 ---
 
 <section id="skills" class="w-full px-4 lg:px-16 xl:px-32 2xl:px-44 relative z-10 my-24 lg:my-32">
@@ -39,7 +47,7 @@ const categories = [
     <h2 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-slate-800">
       技术<span class="text-brand-500">能力</span>
     </h2>
-    <p class="text-slate-500 text-lg mt-4 max-w-xl">持续学习积累的全面技术栈。</p>
+    <p class="text-slate-500 text-lg mt-4 max-w-xl">测试开发 + 前端开发的全方位技术栈积累。</p>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 auto-rows-min">
@@ -67,14 +75,15 @@ const categories = [
     ))}
   </div>
 
-  <!-- 持续学习 card-dark -->
-  <div class="mt-12 card-dark p-8 reveal flex flex-col md:flex-row items-center gap-6">
-    <div class="w-16 h-16 rounded-2xl bg-brand-500/20 flex items-center justify-center flex-shrink-0">
-      <svg class="w-8 h-8 text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+  <!-- 工具标签云 -->
+  <div class="mt-12 reveal">
+    <div class="text-center mb-6">
+      <h3 class="text-lg font-semibold text-slate-800 mb-2">常用工具</h3>
     </div>
-    <div>
-      <h3 class="text-xl font-bold text-white mb-2">持续学习</h3>
-      <p class="text-gray-300">正在深入研究 <span class="text-brand-400 font-medium">WebAssembly</span>、<span class="text-brand-400 font-medium">Rust</span> 和 <span class="text-brand-400 font-medium">大模型应用开发</span>，保持技术视野前沿。</p>
+    <div class="flex flex-wrap justify-center gap-3">
+      {tools.map(t => (
+        <span class="px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:text-brand-500 hover:border-brand-300 hover:bg-brand-50 transition-all cursor-default shadow-sm">{t}</span>
+      ))}
     </div>
   </div>
 </section>
