@@ -1,50 +1,37 @@
 ---
-// Influencer — 水平无限滚动社交卡片（参考 qzq.at 的滚动条设计）
+// Influencer — 真·无限滚动 + CSS mask
 const platforms = [
-  { name: "GitHub", tag: "@yourname", stat1: "120+", stat2: "贡献", color: "bg-slate-800", stat1Label: "Repos", stat2Label: "Contributions" },
-  { name: "掘金", tag: "@yourname", stat1: "5.2k", stat2: "粉丝", color: "bg-blue-600", stat1Label: "Followers", stat2Label: "Likes" },
-  { name: "知乎", tag: "@yourname", stat1: "10+", stat2: "文章", color: "bg-sky-600", stat1Label: "Articles", stat2Label: "Views" },
-  { name: "LeetCode", tag: "@yourname", stat1: "300+", stat2: "题解", color: "bg-amber-600", stat1Label: "Problems", stat2Label: "Solutions" },
-  { name: "博客", tag: "@yourname", stat1: "50+", stat2: "文章", color: "bg-emerald-700", stat1Label: "Posts", stat2Label: "Reads" },
-  { name: "StackOverflow", tag: "@yourname", stat1: "2k+", stat2: "声望", color: "bg-orange-600", stat1Label: "Reputation", stat2Label: "Answers" },
+  { name: "GitHub", tag: "@yourname", stat1: "120+", stat2: "贡献", color: "#1e293b", stat1L: "Repos", stat2L: "Contributions" },
+  { name: "掘金", tag: "@yourname", stat1: "5.2k", stat2: "粉丝", color: "#1d4ed8", stat1L: "Followers", stat2L: "Likes" },
+  { name: "知乎", tag: "@yourname", stat1: "10+", stat2: "文章", color: "#0284c7", stat1L: "Articles", stat2L: "Views" },
+  { name: "LeetCode", tag: "@yourname", stat1: "300+", stat2: "题解", color: "#d97706", stat1L: "Problems", stat2L: "Solutions" },
+  { name: "博客", tag: "@yourname", stat1: "50+", stat2: "文章", color: "#047857", stat1L: "Posts", stat2L: "Reads" },
+  { name: "StackOverflow", tag: "@yourname", stat1: "2k+", stat2: "声望", color: "#ea580c", stat1L: "Reputation", stat2L: "Answers" },
 ];
-
-// 双倍数组实现无限滚动
 const items = [...platforms, ...platforms];
 ---
 
-<section id="social" class="w-full relative z-10 py-16 md:py-24 overflow-hidden">
-  <!-- 标题 -->
+<section id="influencer" class="w-full relative z-10 py-36 md:py-48 overflow-hidden">
   <div class="px-4 lg:px-16 xl:px-32 2xl:px-44 mb-12 reveal">
     <p class="text-brand-500 text-sm font-medium tracking-wider uppercase mb-3">Social</p>
-    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800">
+    <h2 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-slate-800">
       技术<span class="text-brand-500">影响力</span>
     </h2>
-    <p class="text-slate-500 text-lg mt-4 max-w-xl">
-      在各大技术社区分享知识，与开发者一起成长。
-    </p>
+    <p class="text-slate-500 text-lg mt-4 max-w-xl">在各大技术社区分享知识，与开发者一起成长。</p>
   </div>
 
-  <!-- 无限滚动条 -->
-  <div class="relative">
-    <!-- 渐变遮罩 -->
-    <div class="absolute left-0 top-0 bottom-0 w-32 z-20 pointer-events-none" style="background: linear-gradient(to right, #f9fafb, transparent);"></div>
-    <div class="absolute right-0 top-0 bottom-0 w-32 z-20 pointer-events-none" style="background: linear-gradient(to left, #f9fafb, transparent);"></div>
-
-    <div class="flex gap-4 animate-scroll hover:[animation-play-state:paused]">
+  <!-- 无限滚动条 (同 qzq.at: mask + animate-scroll) -->
+  <div class="scroller relative z-20 overflow-hidden scroll-mask">
+    <div class="flex gap-4 scroll-infinite">
       {items.map((p, i) => (
-        <div class={`flex-shrink-0 w-[280px] md:w-[350px] ${p.color} rounded-2xl p-6 text-white`}>
-          <p class="text-white/70 text-sm mb-1">{p.name}</p>
+        <div class="flex-shrink-0 w-[350px] max-w-full rounded-2xl border border-b-0 border-slate-200 p-6 text-white overflow-hidden relative"
+             style={{ backgroundColor: p.color }}>
+          <div class="opacity-10 text-8xl font-display font-bold absolute -right-4 -bottom-8 leading-none pointer-events-none select-none">{p.name[0]}</div>
+          <p class="text-white/80 text-sm mb-1 font-medium">{p.name}</p>
           <p class="text-white/90 text-lg font-semibold mb-6">{p.tag}</p>
           <div class="flex gap-8">
-            <div>
-              <p class="text-3xl font-bold">{p.stat1}</p>
-              <p class="text-white/70 text-sm">{p.stat1Label}</p>
-            </div>
-            <div>
-              <p class="text-3xl font-bold">{p.stat2}</p>
-              <p class="text-white/70 text-sm">{p.stat2Label}</p>
-            </div>
+            <div><p class="text-3xl font-bold">{p.stat1}</p><p class="text-white/70 text-sm">{p.stat1L}</p></div>
+            <div><p class="text-3xl font-bold">{p.stat2}</p><p class="text-white/70 text-sm">{p.stat2L}</p></div>
           </div>
         </div>
       ))}
@@ -52,16 +39,6 @@ const items = [...platforms, ...platforms];
   </div>
 
   <p class="px-4 lg:px-16 xl:px-32 2xl:px-44 text-slate-500 text-lg mt-10 reveal max-w-xl">
-    技术分享是我学习和成长的重要方式。通过博客、开源和社区互动，我与全国各地的开发者建立了联系。
+    技术分享是学习成长的重要方式。通过博客、开源和社区互动持续积累影响力。
   </p>
 </section>
-
-<style>
-  @keyframes scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  .animate-scroll {
-    animation: scroll 25s linear infinite;
-  }
-</style>

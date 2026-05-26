@@ -21,30 +21,6 @@ export default {
         sans: ['Inter', 'system-ui', '-apple-system', 'ui-sans-serif', 'sans-serif'],
         display: ['Coda', 'Inter', 'system-ui', 'sans-serif'],
       },
-      animation: {
-        'scroll': 'scroll 30s linear infinite',
-        'orbit': 'orbit 20s linear infinite',
-        'fade-in': 'fadeIn 1s ease-out forwards',
-        'slide-up': 'slideUp 0.6s ease-out forwards',
-      },
-      keyframes: {
-        scroll: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' },
-        },
-        orbit: {
-          '0%': { transform: 'rotate(0deg)' },
-          '100%': { transform: 'rotate(360deg)' },
-        },
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(30px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-      }
     },
   },
   plugins: [],

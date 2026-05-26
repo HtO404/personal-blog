@@ -1,37 +1,36 @@
 ---
-// Hero — orbit 轨道动画 + 3D 鼠标追踪卡片
-const roles = ["前端开发工程师", "全栈开发者", "技术博主", "终身学习者"];
-const orbitIcons = [
-  { name: "React", color: "#61DAFB" },
-  { name: "TS", color: "#3178C6" },
-  { name: "Node", color: "#339933" },
-  { name: "Git", color: "#F05032" },
-];
+// Hero — qzq.at 正版 3D Orbit 动画
+const navItems = ["前端开发工程师", "全栈开发者", "技术博主", "终身学习者"];
 ---
 
-<section id="home" class="w-full px-4 lg:px-16 xl:px-32 2xl:px-44 relative z-10 my-12 md:mt-40 md:mb-12 py-24 flex flex-wrap-reverse lg:flex-nowrap items-center justify-center gap-12">
-  
-  <!-- ====== 左侧：姓名 + 角色信息 ====== -->
+
+<section id="home" class="w-full px-4 lg:px-16 xl:px-32 2xl:px-44 relative z-10 my-12 md:mt-40 md:mb-12 py-24 flex flex-wrap-reverse md:flex-nowrap items-center justify-center gap-12">
+
+  <!-- 左侧：文字区域 -->
   <div class="flex flex-col items-start gap-4 flex-shrink-0">
     <p class="text-lg font-bold text-slate-600">你好，我是</p>
-    <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight">
-      <span class="text-slate-800">如从</span>
+    
+    <!-- Coda 字体大标题 (同 qzq.at: 60px orange) -->
+    <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+      <span class="text-brand-500">如从</span>
     </h1>
+    
     <p class="text-xl text-slate-500">—— 用代码构建美好体验</p>
-    <div id="role-container" class="h-8 overflow-hidden">
-      <p id="role-text" class="text-lg text-brand-500 font-semibold transition-all duration-300">前端开发工程师</p>
+    
+    <!-- 角色轮播 -->
+    <div class="h-8 overflow-hidden mt-2">
+      <p id="role-text" class="text-lg text-brand-500 font-semibold">前端开发工程师</p>
     </div>
   </div>
 
-  <!-- ====== 右侧：Orbit 3D 卡片 ====== -->
-  <div class="relative w-[280px] h-[280px] md:w-[350px] md:h-[350px] flex items-center justify-center flex-shrink-0">
-    
-    <!-- 中心 3D 卡片 -->
-    <div id="hero-card-container" class="[perspective:600px]">
-      <div id="hero-card" class="p-8 bg-white rounded-3xl shadow-xl shadow-slate-200/80 transition-transform duration-200 ease-linear card-hover"
-           style="transform-style: preserve-3d; transform: rotateX(0deg) rotateY(0deg);">
+  <!-- 右侧：Orbit 3D 卡片 (完全仿 qzq.at) -->
+  <div class="relative w-[350px] h-[350px] md:w-[400px] md:h-[400px] flex items-center justify-center flex-shrink-0">
+
+    <!-- 3D 中心卡片 -->
+    <div class="card-3d-wrap">
+      <div id="hero-card" class="card-3d card-light p-8">
         <div class="text-center">
-          <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-3xl font-bold text-white mb-4 shadow-lg shadow-brand-200">
+          <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-3xl font-bold text-white mb-4 shadow-lg shadow-brand-200 pulse-anim">
             如
           </div>
           <p class="text-sm text-slate-400">前端开发 · {new Date().getFullYear()}</p>
@@ -40,37 +39,43 @@ const orbitIcons = [
       </div>
     </div>
 
-    <!-- Orbit 旋转轨道环 -->
-    <div class="absolute inset-0 animate-orbit" style="transform-origin: center center;">
-      {orbitIcons.map((icon, i) => (
+    <!-- 4个轨道环 （正版 orbit 动画：rotate→translateY→rotate） -->
+    {[
+      { radius: 150, duration: 10, delay: -20, size: 50, color: "#61DAFB", label: "React" },
+      { radius: 150, duration: 20, delay: -20, size: 48, color: "#3178C6", label: "TS" },
+      { radius: 150, duration: 16, delay: -15, size: 32, color: "#F05032", label: "Git" },
+      { radius: 175, duration: 9, delay: -20, size: 120, color: "#339933", label: "Node" },
+    ].map((o, i) => (
+      <div 
+        class="absolute orbit-anim flex items-center justify-center rounded-full bg-transparent -z-10"
+        style={{
+          width: `${o.size}px`,
+          height: `${o.size}px`,
+          '--radius': o.radius,
+          '--duration': o.duration,
+          '--delay': o.delay,
+          left: '50%',
+          top: '50%',
+          marginLeft: `${-o.size / 2}px`,
+          marginTop: `${-o.size / 2}px`,
+        }}
+      >
         <div 
-          class="absolute flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-md shadow-slate-200/60"
+          class={`flex items-center justify-center rounded-full ${o.size > 60 ? 'bg-white/80' : 'bg-white'} shadow-lg`}
           style={{
-            top: `${50 - 43 * Math.sin((i * Math.PI) / 2)}%`,
-            left: `${50 + 43 * Math.cos((i * Math.PI) / 2)}%`,
-            transform: `translate(-50%, -50%) rotate(${-i * (360 / orbitIcons.length)}deg)`,
-            borderColor: icon.color,
-            borderWidth: '2px',
-            borderStyle: 'solid',
+            width: `${o.size}px`,
+            height: `${o.size}px`,
+            border: o.size > 60 ? 'none' : `2px solid ${o.color}`,
           }}
         >
-          <span class="text-[10px] font-bold" style={`color:${icon.color}`}>{icon.name}</span>
+          <span class="font-bold" style={{ color: o.color, fontSize: o.size > 60 ? '16px' : '10px' }}>
+            {o.size > 60 ? 'Node.js' : o.label}
+          </span>
         </div>
-      ))}
-    </div>
-
+      </div>
+    ))}
   </div>
 </section>
-
-<style>
-  @keyframes orbit {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  .animate-orbit {
-    animation: orbit 15s linear infinite;
-  }
-</style>
 
 <script>
   // 角色轮播
@@ -79,21 +84,28 @@ const orbitIcons = [
   const rt = document.getElementById('role-text');
   setInterval(() => {
     ri = (ri + 1) % roles.length;
-    if (rt) { rt.style.opacity = '0'; rt.style.transform = 'translateY(-10px)';
-      setTimeout(() => { rt.textContent = roles[ri]; rt.style.opacity = '1'; rt.style.transform = 'translateY(0)'; }, 200); }
+    if (rt) {
+      rt.style.opacity = '0';
+      rt.style.transform = 'translateY(-10px)';
+      setTimeout(() => {
+        rt.textContent = roles[ri];
+        rt.style.opacity = '1';
+        rt.style.transform = 'translateY(0)';
+      }, 200);
+    }
   }, 3000);
 
   // 3D 鼠标追踪
   const card = document.getElementById('hero-card');
-  const container = document.getElementById('hero-card-container');
-  if (card && container) {
-    container.addEventListener('mousemove', (e) => {
-      const rect = container.getBoundingClientRect();
+  if (card) {
+    const wrap = card.closest('.card-3d-wrap');
+    wrap.addEventListener('mousemove', (e) => {
+      const rect = wrap.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
       const y = ((e.clientY - rect.top) / rect.height - 0.5) * -20;
       card.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
     });
-    container.addEventListener('mouseleave', () => {
+    wrap.addEventListener('mouseleave', () => {
       card.style.transform = 'rotateX(0deg) rotateY(0deg)';
     });
   }
