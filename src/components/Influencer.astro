@@ -1,37 +1,38 @@
 ---
-// Influencer — 真·无限滚动 + CSS mask
-const platforms = [
-  { name: "GitHub", tag: "@yourname", stat1: "120+", stat2: "贡献", color: "#1e293b", stat1L: "Repos", stat2L: "Contributions" },
-  { name: "掘金", tag: "@yourname", stat1: "5.2k", stat2: "粉丝", color: "#1d4ed8", stat1L: "Followers", stat2L: "Likes" },
-  { name: "知乎", tag: "@yourname", stat1: "10+", stat2: "文章", color: "#0284c7", stat1L: "Articles", stat2L: "Views" },
-  { name: "LeetCode", tag: "@yourname", stat1: "300+", stat2: "题解", color: "#d97706", stat1L: "Problems", stat2L: "Solutions" },
-  { name: "博客", tag: "@yourname", stat1: "50+", stat2: "文章", color: "#047857", stat1L: "Posts", stat2L: "Reads" },
-  { name: "StackOverflow", tag: "@yourname", stat1: "2k+", stat2: "声望", color: "#ea580c", stat1L: "Reputation", stat2L: "Answers" },
+// 技术实力 — 真实能力数据卡片
+const cards = [
+  { label: "华测导航", sub: "无人机 AIBOX", v1: "50+", v1L: "提交工单", v2: "10+", v2L: "自动化脚本", color: "#1e293b" },
+  { label: "华测导航", sub: "效率提升", v1: "300%", v1L: "效率提升", v2: "1000轮", v2L: "挂测电检", color: "#ea580c" },
+  { label: "车载测试", sub: "海微科技·五菱", v1: "150+", v1L: "有效Bug", v2: "4平台", v2L: "CAN/光学", color: "#0f766e" },
+  { label: "全栈测试", sub: "本初子午·SaaS", v1: "95%", v1L: "用例覆盖", v2: "40%", v2L: "缺陷率降", color: "#1d4ed8" },
+  { label: "自动化框架", sub: "PyTest+ADB", v1: "6设备", v1L: "AIBOX/基站", v2: "全链路", v2L: "MAVLink/SSH", color: "#4f46e5" },
+  { label: "AI Agent", sub: "Trae+Reasonix", v1: "自动", v1L: "生成报告", v2: "全流程", v2L: "提效流水线", color: "#7c3aed" },
+  { label: "博彦科技", sub: "HP Smart", v1: "4平台", v1L: "多端覆盖", v2: "打印机", v2L: "核心功能", color: "#0369a1" },
+  { label: "荣誉奖项", sub: "国家奖学金", v1: "Top5%", v1L: "专业排名", v2: "省级", v2L: "AI大赛奖", color: "#b45309" },
 ];
-const items = [...platforms, ...platforms];
+const items = [...cards, ...cards];
 ---
 
 <section id="influencer" class="w-full relative z-10 py-36 md:py-48 overflow-hidden">
   <div class="px-4 lg:px-16 xl:px-32 2xl:px-44 mb-12 reveal">
-    <p class="text-brand-500 text-sm font-medium tracking-wider uppercase mb-3">Social</p>
+    <p class="text-brand-500 text-sm font-medium tracking-wider uppercase mb-3">Highlights</p>
     <h2 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-slate-800">
-      技术<span class="text-brand-500">影响力</span>
+      技术<span class="text-brand-500">亮点</span>
     </h2>
-    <p class="text-slate-500 text-lg mt-4 max-w-xl">在各大技术社区分享知识，与开发者一起成长。</p>
+    <p class="text-slate-500 text-lg mt-4 max-w-xl">华测导航、海微科技、本初子午、博彦科技 — 四段实习关键成果盘点。</p>
   </div>
 
-  <!-- 无限滚动条 (同 qzq.at: mask + animate-scroll) -->
   <div class="scroller relative z-20 overflow-hidden scroll-mask">
     <div class="flex gap-4 scroll-infinite">
-      {items.map((p, i) => (
-        <div class="flex-shrink-0 w-[350px] max-w-full rounded-2xl border border-b-0 border-slate-200 p-6 text-white overflow-hidden relative"
-             style={{ backgroundColor: p.color }}>
-          <div class="opacity-10 text-8xl font-display font-bold absolute -right-4 -bottom-8 leading-none pointer-events-none select-none">{p.name[0]}</div>
-          <p class="text-white/80 text-sm mb-1 font-medium">{p.name}</p>
-          <p class="text-white/90 text-lg font-semibold mb-6">{p.tag}</p>
+      {items.map((c, i) => (
+        <div class="flex-shrink-0 w-[300px] md:w-[350px] rounded-2xl p-6 text-white overflow-hidden relative"
+             style={{ backgroundColor: c.color }}>
+          <div class="opacity-10 text-8xl font-display font-bold absolute -right-4 -bottom-8 leading-none pointer-events-none select-none">{c.label[0]}</div>
+          <p class="text-white/80 text-sm mb-1 font-medium">{c.label}</p>
+          <p class="text-white/90 text-lg font-semibold mb-6">{c.sub}</p>
           <div class="flex gap-8">
-            <div><p class="text-3xl font-bold">{p.stat1}</p><p class="text-white/70 text-sm">{p.stat1L}</p></div>
-            <div><p class="text-3xl font-bold">{p.stat2}</p><p class="text-white/70 text-sm">{p.stat2L}</p></div>
+            <div><p class="text-3xl font-bold">{c.v1}</p><p class="text-white/70 text-sm">{c.v1L}</p></div>
+            <div><p class="text-3xl font-bold">{c.v2}</p><p class="text-white/70 text-sm">{c.v2L}</p></div>
           </div>
         </div>
       ))}
@@ -39,6 +40,6 @@ const items = [...platforms, ...platforms];
   </div>
 
   <p class="px-4 lg:px-16 xl:px-32 2xl:px-44 text-slate-500 text-lg mt-10 reveal max-w-xl">
-    技术分享是学习成长的重要方式。通过博客、开源和社区互动持续积累影响力。
+    每段实习都在推动自动化测试落地：从本初子午的 SaaS 接口测试，到海微科技的车载 CAN 总线，再到华测导航的无人机全链路自动化 —— 测试效率提升 300%，1000 轮挂测实现无人值守。
   </p>
 </section>
