@@ -3,16 +3,16 @@
   "phone": "173 6404 6011",
   "email": "17398206513@163.com",
   "education": {
-    "school": "个人简历学院",
-    "major": "计算机科学与技术",
+    "school": "武汉城市学院",
+    "major": "软件工程",
     "degree": "本科",
     "graduationYear": "2026",
     "gpa": "专业前5%",
-    "awards": ["国家奖学金候选人", "校级甲等奖学金", "ACM程序设计竞赛省赛铜奖", "专业一等奖学金"]
+    "awards": ["国家奖学金获得者", "专业一等奖学金"]
   },
   "experience": [
     {
-      "company": "某科技公司",
+      "company": "本初子午",
       "role": "测试开发实习生",
       "period": "2025.01 - 2025.06",
       "type": "实习",
@@ -27,7 +27,7 @@
       ]
     },
     {
-      "company": "HP",
+      "company": "博彦科技",
       "role": "测试实习生",
       "period": "2024.09 - 2024.12",
       "type": "实习",
@@ -47,12 +47,5 @@
     "tools": ["JIRA", "日志分析工具", "Xmind", "Postman", "JMeter", "Apifox", "DBeaver", "TPAD"],
     "platform": ["Linux 基础操作", "Android/iOS/Win/macOS 多平台测试"]
   },
-  "certifications": ["软件评测师（工信部人才评价服务）", "普通话二甲"],
-  "projects": [
-    {
-      "name": "ACM程序设计竞赛",
-      "role": "参赛者",
-      "achievement": "省赛铜奖"
-    }
-  ]
-}
+  "certifications": [ ],
+  }

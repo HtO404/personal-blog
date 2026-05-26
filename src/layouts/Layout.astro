@@ -1,192 +1,96 @@
 ---
-interface Props {
-  title: string;
-  description?: string;
-}
-
-const { title, description = "个人博客 - 展示技术经验与项目作品" } = Astro.props;
+interface Props { title: string; description?: string; }
+const { title, description = "如从 - 前端开发工程师" } = Astro.props;
+const navLinks = [
+  { label: "关于", id: "home" },
+  { label: "经验", id: "experience" },
+  { label: "技能", id: "skills" },
+  { label: "项目", id: "projects" },
+  { label: "联系", id: "contact" },
+];
 ---
 
 <!doctype html>
-<html lang="zh-CN" class="dark scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0f172a" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <style>
-      /* 自定义滚动条 */
-      ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #0f172a;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #334155;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #475569;
-      }
-      
-      /* 滚动动画类 */
-      .reveal {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-      }
-      .reveal.active {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      
-      /* 渐变文字 */
-      .gradient-text {
-        background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      
-      /* 玻璃态效果 */
-      .glass {
-        background: rgba(30, 41, 59, 0.7);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-      }
-      
-      /* 发光效果 */
-      .glow {
-        box-shadow: 0 0 40px rgba(34, 197, 94, 0.15);
-      }
-      
-      /* 悬停发光 */
-      .hover-glow:hover {
-        box-shadow: 0 0 30px rgba(34, 197, 94, 0.3);
-      }
-    </style>
-  </head>
-  <body class="bg-dark-950 text-slate-300 antialiased selection:bg-primary-500/30 selection:text-primary-200">
-    <!-- 固定导航 -->
-    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
-          <a href="/" class="text-xl font-bold text-white tracking-tight hover:text-primary-400 transition-colors">
-            如从<span class="text-primary-500">.</span>
-          </a>
-          <div class="hidden md:flex items-center space-x-1">
-            {['关于', '经历', '技能', '项目', '联系'].map((item, i) => (
-              <a 
-                href={`#${['about', 'experience', 'skills', 'projects', 'contact'][i]}`} 
-                class="px-4 py-2 text-sm text-slate-400 hover:text-white rounded-lg hover:bg-white/5 transition-all"
-              >
-                {item}
-              </a>
-            ))}
-          </div>
-          <!-- 移动端菜单按钮 -->
-          <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-white/5 transition-colors">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <!-- 移动端菜单 -->
-      <div id="mobile-menu" class="hidden md:hidden glass border-t border-white/10">
-        <div class="px-4 py-4 space-y-1">
-          {['关于', '经历', '技能', '项目', '联系'].map((item, i) => (
-            <a 
-              href={`#${['about', 'experience', 'skills', 'projects', 'contact'][i]}`} 
-              class="block px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-all"
-            >
-              {item}
-            </a>
-          ))}
-        </div>
-      </div>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content={description} />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Coda:wght@400;800&display=swap" rel="stylesheet" />
+  <title>{title}</title>
+  <style is:global>
+    /* 全局样式 */
+    body { background: #f9fafb; }
+    
+    /* 文字渐变 */
+    .text-gradient {
+      background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* 卡片悬停微浮 */
+    .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+    
+    /* 滚动渐显 */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.5,0,0,1), transform 0.7s cubic-bezier(0.5,0,0,1);
+    }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body class="min-h-screen text-slate-700 antialiased">
+  <!-- 固定导航 -->
+  <header class="fixed top-0 left-0 right-0 z-50 px-4 lg:px-16 xl:px-32 2xl:px-44 h-[65px] flex items-center justify-between backdrop-blur-[2px] bg-gradient-to-b from-gray-50 to-gray-50/0">
+    <a href="#home" class="text-lg font-bold text-slate-700 hover:text-brand-500 transition-colors">如从</a>
+    <nav class="hidden md:flex items-center gap-8">
+      {navLinks.map(link => (
+        <a href={`#${link.id}`} class="text-sm text-slate-500 hover:text-brand-500 transition-colors">{link.label}</a>
+      ))}
     </nav>
-    
-    <slot />
-    
-    <!-- 页脚 -->
-    <footer class="border-t border-white/5 py-12 bg-dark-950">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p class="text-slate-500 text-sm">
-            &copy; {new Date().getFullYear()} 如从. All rights reserved.
-          </p>
-          <div class="flex items-center gap-6">
-            <a href="https://github.com" target="_blank" class="text-slate-500 hover:text-primary-400 transition-colors">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-            </a>
-            <a href="mailto:email@example.com" class="text-slate-500 hover:text-primary-400 transition-colors">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            </a>
-          </div>
-        </div>
+    <div class="flex items-center gap-4">
+      <a href="https://github.com" target="_blank" class="text-slate-400 hover:text-slate-700 transition-colors">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+      <a href="mailto:email@example.com" class="text-slate-400 hover:text-slate-700 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <slot />
+
+  <footer class="px-4 lg:px-16 xl:px-32 2xl:px-44 py-12 border-t border-slate-200 bg-white">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-slate-400 text-sm">&copy; {new Date().getFullYear()} 如从 · Built with Astro & Tailwind</p>
+      <div class="flex items-center gap-6">
+        <a href="https://github.com" target="_blank" class="text-slate-400 hover:text-brand-500 transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        <a href="mailto:email@example.com" class="text-slate-400 hover:text-brand-500 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></a>
       </div>
-    </footer>
+    </div>
+  </footer>
 
-    <script>
-      // 导航栏滚动效果
-      const navbar = document.getElementById('navbar');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          navbar.classList.add('glass', 'border-b', 'border-white/10');
-        } else {
-          navbar.classList.remove('glass', 'border-b', 'border-white/10');
-        }
+  <script>
+    // 滚动渐显
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // 锚点平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
       });
-
-      // 移动端菜单切换
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      
-      mobileMenuBtn?.addEventListener('click', () => {
-        mobileMenu?.classList.toggle('hidden');
-      });
-
-      // 平滑滚动
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          mobileMenu?.classList.add('hidden');
-        });
-      });
-
-      // 滚动显示动画
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-          }
-        });
-      }, observerOptions);
-
-      document.querySelectorAll('.reveal').forEach(el => {
-        observer.observe(el);
-      });
-    </script>
-  </body>
+    });
+  </script>
+</body>
 </html>

@@ -1,134 +1,83 @@
 ---
-// Skills 组件 - 高级技能展示
-const skillCategories = [
+// Skills — 网格布局彩色进度条
+const categories = [
   {
-    name: "前端开发",
-    icon: "browser",
+    name: "前端",
     skills: [
-      { name: "React", level: 95, color: "#61DAFB" },
+      { name: "React / Next.js", level: 95, color: "#61DAFB" },
       { name: "TypeScript", level: 90, color: "#3178C6" },
       { name: "Vue.js", level: 85, color: "#4FC08D" },
-      { name: "Next.js", level: 88, color: "#000000" },
-      { name: "Tailwind CSS", level: 92, color: "#06B6D4" },
-      { name: "HTML/CSS", level: 95, color: "#E34F26" }
+      { name: "HTML / CSS / Tailwind", level: 95, color: "#06B6D4" },
+      { name: "JavaScript", level: 92, color: "#F7DF1E" },
     ]
   },
   {
-    name: "后端 & 工具",
-    icon: "server",
+    name: "后端",
     skills: [
       { name: "Node.js", level: 80, color: "#339933" },
       { name: "Python", level: 75, color: "#3776AB" },
-      { name: "Git", level: 90, color: "#F05032" },
-      { name: "Docker", level: 70, color: "#2496ED" },
-      { name: "GraphQL", level: 75, color: "#E10098" },
-      { name: "PostgreSQL", level: 70, color: "#336791" }
+      { name: "GraphQL", level: 72, color: "#E10098" },
+      { name: "PostgreSQL", level: 70, color: "#336791" },
     ]
-  }
-];
-
-const tools = [
-  "VS Code", "WebStorm", "Figma", "Postman", 
-  "Vercel", "GitHub Actions", "Jest", "Cypress"
+  },
+  {
+    name: "工具",
+    skills: [
+      { name: "Git / GitHub", level: 90, color: "#F05032" },
+      { name: "Docker", level: 70, color: "#2496ED" },
+      { name: "Webpack / Vite", level: 85, color: "#8DD6F9" },
+      { name: "Jest / Cypress", level: 78, color: "#C21325" },
+    ]
+  },
 ];
 ---
 
-<section id="skills" class="py-24 px-4 relative">
-  <div class="max-w-6xl mx-auto">
-    <!-- 标题 -->
-    <div class="text-center mb-16 reveal">
-      <p class="text-primary-400 text-sm font-medium tracking-widest uppercase mb-4">Skills</p>
-      <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
-        技术<span class="gradient-text">技能</span>
-      </h2>
-      <p class="text-slate-400 max-w-2xl mx-auto text-lg">
-        持续学习和实践，构建全面的技术栈，以应对不同的项目需求。
-      </p>
-    </div>
+<section id="skills" class="w-full px-4 lg:px-16 xl:px-32 2xl:px-44 relative z-10 my-24 lg:my-32">
 
-    <!-- 技能分类 -->
-    <div class="grid lg:grid-cols-2 gap-8 mb-16">
-      {skillCategories.map((category, catIndex) => (
-        <div class="reveal" style={`transition-delay: ${catIndex * 0.1}s`}>
-          <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary-500/30 transition-all">
-            <!-- 分类标题 -->
-            <div class="flex items-center gap-3 mb-6">
-              <div class="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center">
-                {category.icon === 'browser' && (
-                  <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                  </svg>
-                )}
-                {category.icon === 'server' && (
-                  <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
-                  </svg>
-                )}
+  <div class="reveal mb-16">
+    <p class="text-brand-500 text-sm font-medium tracking-wider uppercase mb-3">Skills</p>
+    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800">
+      技术<span class="text-brand-500">能力</span>
+    </h2>
+    <p class="text-slate-500 text-lg mt-4 max-w-xl">
+      持续学习积累的全面技术栈。
+    </p>
+  </div>
+
+  <!-- ====== 技能网格 ====== -->
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 auto-rows-min">
+    {categories.map(cat => (
+      <div class="bg-white rounded-2xl p-6 shadow-sm shadow-slate-200/60 card-hover reveal">
+        <h3 class="text-lg font-bold text-slate-800 mb-5 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+          {cat.name}
+        </h3>
+        <div class="space-y-4">
+          {cat.skills.map(s => (
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-slate-600 font-medium">{s.name}</span>
+                <span class="text-slate-400 font-mono">{s.level}%</span>
               </div>
-              <h3 class="text-xl font-bold text-white">{category.name}</h3>
+              <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full rounded-full transition-all duration-700 ease-out" 
+                     style={`width:${s.level}%;background:${s.color};box-shadow:0 0 6px ${s.color}60;`}></div>
+              </div>
             </div>
-
-            <!-- 技能列表 -->
-            <div class="space-y-4">
-              {category.skills.map((skill) => (
-                <div class="group">
-                  <div class="flex justify-between items-center mb-2">
-                    <span class="text-slate-300 font-medium">{skill.name}</span>
-                    <span class="text-slate-500 text-sm font-mono">{skill.level}%</span>
-                  </div>
-                  <div class="h-2 bg-dark-800 rounded-full overflow-hidden">
-                    <div 
-                      class="h-full rounded-full transition-all duration-1000 ease-out group-hover:shadow-lg"
-                      style={`width: ${skill.level}%; background-color: ${skill.color}; box-shadow: 0 0 10px ${skill.color}40;`}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <!-- 工具标签云 -->
-    <div class="reveal" style="transition-delay: 0.2s;">
-      <div class="text-center mb-8">
-        <h3 class="text-lg font-semibold text-white mb-2">常用工具</h3>
-        <p class="text-slate-400 text-sm">提升开发效率的得力助手</p>
-      </div>
-      
-      <div class="flex flex-wrap justify-center gap-3">
-        {tools.map((tool, index) => (
-          <span 
-            class="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:border-primary-500/30 hover:bg-white/10 transition-all cursor-default"
-            style={`animation-delay: ${index * 0.05}s`}
-          >
-            {tool}
-          </span>
-        ))}
-      </div>
-    </div>
-
-    <!-- 学习能力展示 -->
-    <div class="mt-16 reveal" style="transition-delay: 0.3s;">
-      <div class="p-8 rounded-2xl bg-gradient-to-br from-primary-500/10 to-primary-600/10 border border-primary-500/20">
-        <div class="flex flex-col md:flex-row items-center gap-6">
-          <div class="w-16 h-16 rounded-2xl bg-primary-500/20 flex items-center justify-center flex-shrink-0">
-            <svg class="w-8 h-8 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-            </svg>
-          </div>
-          <div class="text-center md:text-left">
-            <h3 class="text-xl font-bold text-white mb-2">持续学习</h3>
-            <p class="text-slate-400">
-              技术日新月异，我保持着每周学习新技术的习惯。目前正在深入学习 
-              <span class="text-primary-400">WebAssembly</span>、
-              <span class="text-primary-400">Rust</span> 和 
-              <span class="text-primary-400">AI 应用开发</span>。
-            </p>
-          </div>
+          ))}
         </div>
       </div>
+    ))}
+  </div>
+
+  <!-- 持续学习 -->
+  <div class="mt-12 bg-white rounded-2xl p-8 shadow-sm shadow-slate-200/60 reveal flex flex-col md:flex-row items-center gap-6">
+    <div class="w-16 h-16 rounded-2xl bg-brand-100 flex items-center justify-center flex-shrink-0">
+      <svg class="w-8 h-8 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+    </div>
+    <div>
+      <h3 class="text-xl font-bold text-slate-800 mb-2">持续学习</h3>
+      <p class="text-slate-500">正在深入研究 <span class="text-brand-500 font-medium">WebAssembly</span>、<span class="text-brand-500 font-medium">Rust</span> 和 <span class="text-brand-500 font-medium">大模型应用开发</span>，保持技术视野的前沿。</p>
     </div>
   </div>
 </section>

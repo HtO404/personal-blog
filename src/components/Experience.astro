@@ -1,141 +1,76 @@
 ---
-// Experience 组件 - 高级工作经历展示
-const experiences = [
+// Experience — Code 风格经验与工作经历
+const jobs = [
   {
     company: "某知名科技公司",
     role: "高级前端开发工程师",
-    period: "2022.06 - 至今",
+    period: "2022.06 – 至今",
     location: "北京",
-    type: "全职",
-    description: "负责公司核心产品的前端架构设计与开发，带领团队完成多个重要项目，优化产品性能提升用户体验。",
-    achievements: [
-      "主导重构前端架构，将页面加载速度提升 60%",
-      "设计并实现组件库，提高团队开发效率 40%",
-      "引入自动化测试流程，代码覆盖率达到 85%",
-      "指导初级开发者，组织技术分享 10+ 场"
-    ],
-    tech: ["React", "TypeScript", "Next.js", "Tailwind CSS", "GraphQL"]
+    desc: "负责核心产品前端架构，主导性能优化与组件库建设。使用 React + TypeScript 重构旧系统，提升页面加载速度 60%，并建立前端工程化规范。",
+    skills: ["React", "TypeScript", "Next.js", "GraphQL", "Tailwind"],
   },
   {
     company: "某互联网公司",
     role: "前端开发工程师",
-    period: "2021.03 - 2022.05",
+    period: "2021.03 – 2022.05",
     location: "上海",
-    type: "全职",
-    description: "参与公司电商平台的前端开发，负责多个业务模块的开发和维护，与后端、设计团队紧密配合。",
-    achievements: [
-      "独立完成商品详情页重构，转化率提升 15%",
-      "优化移动端适配方案，兼容性覆盖 99% 设备",
-      "开发可视化数据大屏，支持实时数据展示"
-    ],
-    tech: ["Vue.js", "JavaScript", "Element UI", "ECharts", "Webpack"]
+    desc: "参与电商平台前端开发，独立负责商品详情页重构，转化率提升 15%。开发可视化数据大屏，支持实时数据展示与交互。",
+    skills: ["Vue.js", "JavaScript", "ECharts", "Element UI", "Webpack"],
   },
   {
     company: "某创业公司",
     role: "前端开发实习生",
-    period: "2020.07 - 2021.02",
+    period: "2020.07 – 2021.02",
     location: "杭州",
-    type: "实习",
-    description: "在创业团队中学习并实践现代前端开发流程，参与产品从 0 到 1 的开发过程。",
-    achievements: [
-      "参与开发公司官网和管理后台",
-      "学习并应用响应式设计和移动端开发",
-      "协助完成小程序开发项目"
-    ],
-    tech: ["HTML/CSS", "JavaScript", "jQuery", "Bootstrap"]
-  }
+    desc: "加入早期团队参与产品从 0 到 1 开发。学习并应用现代前端工作流，包括 CI/CD、代码审查、单元测试等工程实践。",
+    skills: ["HTML/CSS", "JavaScript", "jQuery", "Bootstrap", "Git"],
+  },
 ];
 ---
 
-<section id="experience" class="py-24 px-4 relative bg-dark-900/30">
-  <!-- 背景装饰 -->
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,rgba(34,197,94,0.05),transparent)]"></div>
+<section id="experience" class="w-full px-4 lg:px-16 xl:px-32 2xl:px-44 relative z-10 my-24 lg:my-32">
   
-  <div class="max-w-5xl mx-auto relative">
-    <!-- 标题 -->
-    <div class="text-center mb-16 reveal">
-      <p class="text-primary-400 text-sm font-medium tracking-widest uppercase mb-4">Experience</p>
-      <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
-        工作<span class="gradient-text">经历</span>
-      </h2>
-      <p class="text-slate-400 max-w-2xl mx-auto text-lg">
-        在不同规模的公司中积累的经验，让我具备了从快速迭代到架构设计的全方位能力。
-      </p>
-    </div>
+  <div class="reveal mb-16">
+    <p class="text-brand-500 text-sm font-medium tracking-wider uppercase mb-3">Experience</p>
+    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800">
+      工作<span class="text-brand-500">经历</span>
+    </h2>
+    <p class="text-slate-500 text-lg mt-4 max-w-xl">
+      在不同规模公司积累的全方位工程能力。
+    </p>
+  </div>
 
-    <!-- 时间线 -->
-    <div class="relative">
-      <!-- 时间线中轴线 -->
-      <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary-500/50 via-primary-500/20 to-transparent md:-translate-x-1/2"></div>
-      
-      <!-- 经历列表 -->
-      <div class="space-y-12">
-        {experiences.map((exp, index) => (
-          <div class={`relative flex flex-col md:flex-row gap-8 ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
-            <!-- 时间点标记 -->
-            <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-primary-500 rounded-full -translate-x-1.5 mt-1.5 ring-4 ring-dark-950 shadow-lg shadow-primary-500/30"></div>
-            
-            <!-- 日期（左侧或右侧） -->
-            <div class={`hidden md:block md:w-1/2 ${index % 2 === 0 ? 'md:text-right md:pr-12' : 'md:text-left md:pl-12'}`}>
-              <span class="text-primary-400 font-mono text-sm">{exp.period}</span>
-            </div>
-            
-            <!-- 内容卡片 -->
-            <div class={`ml-8 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pl-12' : 'md:pr-12'}`}>
-              <div class="group p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary-500/30 hover:bg-white/10 transition-all reveal">
-                <!-- 头部信息 -->
-                <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
-                  <div>
-                    <h3 class="text-xl font-bold text-white group-hover:text-primary-400 transition-colors">
-                      {exp.role}
-                    </h3>
-                    <p class="text-slate-400">{exp.company}</p>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <span class="px-3 py-1 text-xs rounded-full bg-primary-500/10 text-primary-400 border border-primary-500/20">
-                      {exp.type}
-                    </span>
-                  </div>
-                </div>
-                
-                <!-- 移动端日期 -->
-                <div class="md:hidden mb-4">
-                  <span class="text-primary-400 font-mono text-sm">{exp.period}</span>
-                  <span class="text-slate-500 mx-2">·</span>
-                  <span class="text-slate-500 text-sm">{exp.location}</span>
-                </div>
-                
-                <!-- 描述 -->
-                <p class="text-slate-400 mb-4 leading-relaxed">{exp.description}</p>
-                
-                <!-- 成就列表 -->
-                <div class="mb-4">
-                  <h4 class="text-sm font-semibold text-white mb-2">主要成就：</h4>
-                  <ul class="space-y-2">
-                    {exp.achievements.map((achievement) => (
-                      <li class="flex items-start gap-2 text-sm text-slate-400">
-                        <svg class="w-4 h-4 text-primary-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span>{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <!-- 技术栈 -->
-                <div class="flex flex-wrap gap-2">
-                  {exp.tech.map((tech) => (
-                    <span class="px-2 py-1 text-xs rounded-md bg-white/5 text-slate-400 border border-white/10">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+  <!-- 时间线 -->
+  <div class="relative">
+    <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-slate-200 md:-translate-x-1/2"></div>
+
+    <div class="space-y-16">
+      {jobs.map((job, i) => (
+        <div class={`relative flex flex-col md:flex-row gap-8 ${i % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
+          <div class="absolute left-0 md:left-1/2 w-3 h-3 bg-brand-500 rounded-full -translate-x-[4px] md:-translate-x-1.5 mt-1.5 ring-4 ring-gray-50"></div>
+
+          <div class={`hidden md:block md:w-1/2 ${i % 2 === 0 ? 'md:text-right md:pr-12' : 'md:text-left md:pl-12'}`}>
+            <span class="text-brand-500 font-mono text-sm font-semibold">{job.period}</span>
+            <p class="text-slate-400 text-sm">{job.location}</p>
+          </div>
+
+          <div class={`ml-6 md:ml-0 md:w-1/2 ${i % 2 === 0 ? 'md:pl-12' : 'md:pr-12'}`}>
+            <div class="group bg-white rounded-2xl p-6 shadow-sm shadow-slate-200/60 card-hover reveal">
+              <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                <h3 class="text-xl font-bold text-slate-800 group-hover:text-brand-500 transition-colors">{job.role}</h3>
+              </div>
+              <p class="text-brand-500 font-semibold text-sm mb-1">{job.company}</p>
+              <div class="md:hidden text-brand-500 font-mono text-xs mb-3">{job.period} · {job.location}</div>
+              <p class="text-slate-500 text-sm leading-relaxed mb-4">{job.desc}</p>
+              <div class="flex flex-wrap gap-2">
+                {job.skills.map(s => (
+                  <span class="px-3 py-1 text-xs rounded-full bg-slate-100 text-slate-600 border border-slate-200">{s}</span>
+                ))}
               </div>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   </div>
 </section>

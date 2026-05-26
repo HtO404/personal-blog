@@ -1,173 +1,115 @@
 ---
-// Projects 组件 - 高级项目展示
+// Projects + Contact 合并在一个文件
 const projects = [
   {
     title: "企业级管理后台",
-    description: "为大型企业开发的综合管理系统，支持多角色权限、数据可视化、报表导出等功能。采用微前端架构，支持模块独立部署。",
-    image: null,
+    desc: "微前端架构的大型系统，支持多角色权限、数据可视化、报表导出。负责前端架构设计与性能优化。",
     tags: ["React", "TypeScript", "Ant Design", "ECharts"],
-    highlights: ["支持 1000+ 并发用户", "页面加载速度 < 2s", "代码覆盖率 90%"],
-    demoUrl: "#",
-    githubUrl: "#",
-    featured: true
+    color: "from-blue-600 to-indigo-700",
+    highlights: ["微前端架构", "性能优化 60%", "代码覆盖率 90%"],
   },
   {
     title: "电商平台前端",
-    description: "完整的电商解决方案前端部分，包含商品展示、购物车、订单管理、支付集成等核心功能。",
-    image: null,
-    tags: ["Next.js", "Tailwind CSS", "Stripe", "Redis"],
-    highlights: ["SEO 优化", "SSR 渲染", "PWA 支持"],
-    demoUrl: "#",
-    githubUrl: "#",
-    featured: true
+    desc: "完整电商解决方案，包含商品展示、购物车、订单管理、支付集成。采用 SSR 优化首屏加载。",
+    tags: ["Next.js", "Tailwind", "Stripe", "Redis"],
+    color: "from-emerald-600 to-teal-700",
+    highlights: ["SSR 渲染", "PWA 支持", "首屏 < 1.5s"],
   },
   {
     title: "实时协作白板",
-    description: "支持多人实时协作的在线白板工具，可用于远程会议、头脑风暴、教学演示等场景。",
-    image: null,
+    desc: "支持 50+ 人实时协作的在线白板，WebSocket 同步延迟 < 100ms。用于远程会议与教学。",
     tags: ["Vue.js", "WebSocket", "Canvas", "Node.js"],
-    highlights: ["实时同步 < 100ms", "支持 50+ 人协作", "数据持久化"],
-    demoUrl: "#",
-    githubUrl: "#",
-    featured: false
+    color: "from-violet-600 to-purple-700",
+    highlights: ["延迟 < 100ms", "50+ 人协作", "数据持久化"],
   },
   {
     title: "个人博客系统",
-    description: "基于 Astro 构建的高性能静态博客，支持 Markdown、代码高亮、RSS 订阅等功能。",
-    image: null,
-    tags: ["Astro", "React", "Tailwind CSS"],
-    highlights: ["Lighthouse 评分 100", "首屏加载 < 1s", "完美 SEO"],
-    demoUrl: "#",
-    githubUrl: "#",
-    featured: false
-  }
+    desc: "Astro + React 构建的高性能静态博客。Lighthouse 评分 100，支持 Markdown 和 RSS。",
+    tags: ["Astro", "React", "Tailwind"],
+    color: "from-amber-600 to-orange-700",
+    highlights: ["Lighthouse 100", "首屏 < 1s", "SEO 友好"],
+  },
 ];
 ---
 
-<section id="projects" class="py-24 px-4 relative bg-dark-900/30">
-  <!-- 背景装饰 -->
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_100%,rgba(34,197,94,0.08),transparent)]"></div>
+<section id="projects" class="w-full px-4 lg:px-16 xl:px-32 2xl:px-44 relative z-10 my-24 lg:my-32">
   
-  <div class="max-w-6xl mx-auto relative">
-    <!-- 标题 -->
-    <div class="text-center mb-16 reveal">
-      <p class="text-primary-400 text-sm font-medium tracking-widest uppercase mb-4">Projects</p>
-      <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
-        精选<span class="gradient-text">项目</span>
+  <div class="reveal mb-16">
+    <p class="text-brand-500 text-sm font-medium tracking-wider uppercase mb-3">Projects</p>
+    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800">
+      精选<span class="text-brand-500">项目</span>
+    </h2>
+    <p class="text-slate-500 text-lg mt-4 max-w-xl">
+      代表我的技术能力和工程思维的项目作品。
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-6">
+    {projects.map((p, i) => (
+      <div class={`group bg-white rounded-2xl shadow-sm shadow-slate-200/60 card-hover overflow-hidden reveal`} style={`transition-delay:${i*0.1}s`}>
+        <!-- 项目色条 -->
+        <div class={`h-2 bg-gradient-to-r ${p.color}`}></div>
+        <div class="p-6 md:p-8">
+          <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-slate-100 mb-4 group-hover:bg-brand-50 transition-colors">
+            <svg class="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-500 transition-colors">{p.title}</h3>
+          <p class="text-slate-500 text-sm leading-relaxed mb-4">{p.desc}</p>
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            {p.highlights.map(h => (
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-brand-50 text-brand-600 text-xs">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                {h}
+              </span>
+            ))}
+          </div>
+          <div class="flex flex-wrap gap-2">
+            {p.tags.map(t => (
+              <span class="px-2 py-1 text-xs rounded-md bg-slate-100 text-slate-600">{t}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- ====== Contact ====== -->
+<section id="contact" class="w-full px-4 lg:px-16 xl:px-32 2xl:px-44 relative z-10 my-24 lg:my-32">
+  
+  <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm shadow-slate-200/60 reveal">
+    <div class="text-center mb-8">
+      <p class="text-brand-500 text-sm font-medium tracking-wider uppercase mb-3">Contact</p>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800 mb-4">
+        联系<span class="text-brand-500">我</span>
       </h2>
-      <p class="text-slate-400 max-w-2xl mx-auto text-lg">
-        这些项目展示了我的技术能力和解决实际问题的经验。
+      <p class="text-slate-500 text-lg max-w-md mx-auto">
+        欢迎交流技术、合作项目或任何有趣的想法。
       </p>
     </div>
 
-    <!-- 项目网格 -->
-    <div class="grid md:grid-cols-2 gap-6">
-      {projects.map((project, index) => (
-        <div 
-          class={`group relative rounded-2xl overflow-hidden reveal ${project.featured ? 'md:col-span-2' : ''}`}
-          style={`transition-delay: ${index * 0.1}s`}
-        >
-          <!-- 背景卡片 -->
-          <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 border border-white/10 group-hover:border-primary-500/30 transition-all"></div>
-          
-          <!-- 发光效果 -->
-          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-primary-500/10 via-transparent to-primary-500/10"></div>
-          
-          <div class="relative p-6 md:p-8">
-            <div class={`grid gap-6 ${project.featured ? 'md:grid-cols-2 items-center' : ''}`}>
-              <!-- 项目图片/图标区域 -->
-              <div class={`relative ${project.featured ? '' : 'mb-4'}`}>
-                <div class="aspect-video rounded-xl bg-gradient-to-br from-dark-800 to-dark-900 border border-white/5 flex items-center justify-center overflow-hidden group-hover:border-primary-500/20 transition-colors">
-                  {project.image ? (
-                    <img src={project.image} alt={project.title} class="w-full h-full object-cover" />
-                  ) : (
-                    <div class="text-center">
-                      <div class="w-20 h-20 mx-auto rounded-2xl bg-primary-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                        <svg class="w-10 h-10 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                        </svg>
-                      </div>
-                      <p class="text-slate-500 text-sm">项目预览图</p>
-                    </div>
-                  )}
-                </div>
-                
-                <!-- Featured 标签 -->
-                {project.featured && (
-                  <div class="absolute top-3 left-3">
-                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-primary-500 text-white shadow-lg shadow-primary-500/30">
-                      Featured
-                    </span>
-                  </div>
-                )}
-              </div>
-              
-              <!-- 项目信息 -->
-              <div class="space-y-4">
-                <div>
-                  <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-primary-400 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p class="text-slate-400 leading-relaxed">{project.description}</p>
-                </div>
-                
-                <!-- 亮点 -->
-                <div class="flex flex-wrap gap-2">
-                  {project.highlights.map((highlight) => (
-                    <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary-500/10 text-primary-400 text-xs border border-primary-500/20">
-                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      {highlight}
-                    </span>
-                  ))}
-                </div>
-                
-                <!-- 技术栈 -->
-                <div class="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span class="px-3 py-1 rounded-lg bg-white/5 text-slate-400 text-sm border border-white/10 group-hover:border-white/20 transition-colors">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                
-                <!-- 操作按钮 -->
-                <div class="flex gap-3 pt-2">
-                  <a 
-                    href={project.demoUrl}
-                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 hover:bg-primary-500 text-white rounded-lg font-medium transition-all hover:scale-105"
-                  >
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                    查看演示
-                  </a>
-                  <a 
-                    href={project.githubUrl}
-                    class="inline-flex items-center gap-2 px-5 py-2.5 border border-white/10 hover:border-white/30 text-slate-300 hover:text-white rounded-lg font-medium transition-all hover:scale-105"
-                  >
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                    源码
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div class="grid md:grid-cols-3 gap-4 max-w-2xl mx-auto">
+      <a href="mailto:email@example.com" class="flex flex-col items-center gap-3 p-6 rounded-xl hover:bg-brand-50 transition-colors group">
+        <div class="w-14 h-14 rounded-2xl bg-brand-100 flex items-center justify-center group-hover:scale-110 transition-transform">
+          <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
         </div>
-      ))}
-    </div>
-    
-    <!-- 查看更多 -->
-    <div class="text-center mt-12 reveal">
-      <a href="https://github.com" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/10 hover:border-primary-500/30 text-slate-400 hover:text-white transition-all group">
-        <span>在 GitHub 查看更多项目</span>
-        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
+        <p class="text-slate-800 font-semibold">邮箱</p>
+        <p class="text-slate-400 text-sm">email@example.com</p>
       </a>
+      <a href="https://github.com" target="_blank" class="flex flex-col items-center gap-3 p-6 rounded-xl hover:bg-brand-50 transition-colors group">
+        <div class="w-14 h-14 rounded-2xl bg-brand-100 flex items-center justify-center group-hover:scale-110 transition-transform">
+          <svg class="w-6 h-6 text-brand-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </div>
+        <p class="text-slate-800 font-semibold">GitHub</p>
+        <p class="text-slate-400 text-sm">@yourname</p>
+      </a>
+      <div class="flex flex-col items-center gap-3 p-6 rounded-xl hover:bg-brand-50 transition-colors group">
+        <div class="w-14 h-14 rounded-2xl bg-brand-100 flex items-center justify-center group-hover:scale-110 transition-transform">
+          <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <p class="text-slate-800 font-semibold">位置</p>
+        <p class="text-slate-400 text-sm">中国·北京</p>
+      </div>
     </div>
   </div>
 </section>

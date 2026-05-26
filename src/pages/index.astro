@@ -1,23 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
+import Influencer from '../components/Influencer.astro';
 import Experience from '../components/Experience.astro';
 import Skills from '../components/Skills.astro';
 import Projects from '../components/Projects.astro';
-import Contact from '../components/Contact.astro';
 
 const title = "如从 | 前端开发工程师";
-const description = "如从的个人博客 - 展示前端开发经验、技术技能和项目作品";
+const description = "如从的个人技术博客 — 前端开发经验、项目作品与技术分享";
 ---
 
 <Layout title={title} description={description}>
-  <main class="min-h-screen">
+  <main class="min-h-screen bg-gray-50">
     <Hero />
-    <About />
+    <Influencer />
     <Experience />
     <Skills />
     <Projects />
-    <Contact />
   </main>
 </Layout>
