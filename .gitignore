@@ -1,6 +1,5 @@
 node_modules/
 dist/
-.astro/
-.env
-.env.*
-!.env.example
+.env*
+*.local
+.DS_Store

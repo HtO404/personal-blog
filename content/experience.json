@@ -1,16 +1,63 @@
 [
   {
-    "company": "某科技公司",
-    "role": "前端开发工程师",
-    "period": "2022 - 至今",
-    "description": "负责公司核心产品的前端架构设计与开发，带领团队完成多个重要项目。",
-    "highlights": ["React/Vue 项目开发", "性能优化", "团队协作"]
+    "company": "华测导航",
+    "role": "自动化测试开发",
+    "period": "2026.01 – 至今",
+    "location": "",
+    "type": "在职",
+    "desc": "负责无人机 AIBOX 设备的自动化测试开发，对接嵌入式、飞控、软件开发多部门。",
+    "achievements": [
+      "使用 uiautomator2 开发 Android UI 自动化脚本，覆盖 AIBOX、mini 基站、fpv、吊舱等多设备，自动化测试可覆盖 60% 需求",
+      "使用 PyTest 框架开发自动化脚本（MAVLink 心跳检测/RS232 Modbus 电源控制/SSH 远程拨号/FTP 文件传输/OTA 固件更新），完成嵌入式设备全链路测试",
+      "累计编写自动化脚本 10+ 个，1000 轮上下电+SIM 识别测试由人工 8-10 小时转为无人值守夜间挂测",
+      "累计提交工单 50+，独立排查定位 4G 切换失败、FPV 黑屏、IP 切换失败等复杂问题",
+      "构建 AI Agent 工作流（Reasonix CLI+Trae），实现测试报告及操作手册自动生成，单次工作效率提升 300%+"
+    ],
+    "skills": ["Python", "uiautomator2", "PyTest", "MAVLink", "RS232/Modbus", "ADB", "AI Agent"]
   },
   {
-    "company": "某互联网公司",
-    "role": "前端开发实习生",
-    "period": "2021 - 2022",
-    "description": "参与公司电商平台的前端开发，学习并实践了现代前端开发流程。",
-    "highlights": ["组件开发", "页面重构", "单元测试"]
+    "company": "海微科技",
+    "role": "车载系统测试",
+    "period": "2025.07 – 2025.11",
+    "location": "",
+    "type": "实习",
+    "desc": "负责车载系统测试，独立操作温箱、热成像仪、可调电源等设备，完成环境可靠性测试。",
+    "achievements": [
+      "独立完成温升、电源、高低温等模块测试，输出合规测试产物；参与五菱吸顶屏项目，试用期提交有效 bug ≥ 60 个",
+      "主导量产项目测试，累计负责 bug ≥ 150 个，无 A/B 类 bug 流到产线/客户端",
+      "掌握 CAN 总线测试（CANOE 工具）、光学测试（CA410/CS2000），了解 ISO 26262 功能安全与 ASPICE 规范",
+      "编写 videosource 测试用例与 touch 触摸测试，输出复盘总结推动流程优化"
+    ],
+    "skills": ["CANOE", "CA410", "CS2000", "温箱", "热成像仪", "ASPICE", "ISO 26262"]
+  },
+  {
+    "company": "本初子午",
+    "role": "测试开发实习生",
+    "period": "2025.01 – 2025.06",
+    "location": "武汉",
+    "type": "实习",
+    "desc": "参与 SaaS + App + Web 产品的全流程测试，覆盖功能测试、接口测试、自动化测试。",
+    "achievements": [
+      "参与 PRD 需求评审，判断测试 scope 与排期，覆盖 App/Web/接口多端",
+      "使用 Xmind 梳理测试矩阵，编写用例并组织评审，覆盖率 95%+",
+      "使用 Apifox/Postman 执行接口测试，校验私有接口与边界值，效率提升 60%",
+      "使用 TPAD/禅道管理缺陷全生命周期，推动跨部门修复，缺陷率降低 40%"
+    ],
+    "skills": ["Python", "Selenium", "Apifox", "Postman", "TPAD", "Xmind"]
+  },
+  {
+    "company": "博彦科技",
+    "role": "测试实习生",
+    "period": "2024.09 – 2024.12",
+    "location": "武汉",
+    "type": "实习",
+    "desc": "负责 HP Smart 打印机产品测试，覆盖 Android / iOS / Windows / macOS 多平台。",
+    "achievements": [
+      "搭建测试环境，配置模拟器和真机测试账号",
+      "负责 HP 打印机核心功能测试，覆盖 4 个平台",
+      "编写执行测试用例，验证打印机配置、打印等核心功能稳定性",
+      "编写学习手册和测试用例，同步新版本回归测试效率"
+    ],
+    "skills": ["Android", "iOS", "Windows", "macOS", "测试用例设计", "JIRA"]
   }
 ]

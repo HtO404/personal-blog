@@ -1,14 +1,16 @@
 {
   "name": "如从",
-  "title": "前端开发工程师",
-  "bio": "一名热爱技术的开发者，专注于创造优秀的用户体验。",
-  "location": "中国",
-  "email": "your@email.com",
-  "avatar": "/assets/avatar.png",
-  "roles": ["前端开发者", "全栈工程师", "技术爱好者", "终身学习者"],
+  "title": "测试开发工程师",
+  "bio": "华测导航自动化测试开发 · 车载系统测试 · SaaS 全流程测试。Python/ADB/PyTest 全链路自动化，AI Agent 提效。",
+  "location": "武汉",
+  "email": "17398206513@163.com",
+  "phone": "17364046011",
+  "school": "武汉城市学院 · 软件工程 · 2026届",
+  "avatar": "/avatar.jpg",
+  "roles": ["测试开发工程师", "Vibe coder", "Prompt Engineer", "自动化测试工程师", "终身学习者"],
   "social": {
-    "github": "https://github.com/yourusername",
-    "linkedin": "https://linkedin.com/in/yourusername",
-    "email": "your@email.com"
-  }
+    "github": "https://github.com",
+    "email": "17398206513@163.com"
+  },
+  "awards": "国家奖学金 · 国家励志奖学金 · 全国大学生计算机设计大赛 AI 组省级三等奖 · 专业一等奖学金"
 }
