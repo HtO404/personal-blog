@@ -104,6 +104,163 @@ const navLinks = [
       border: 1px solid rgba(0,0,0,0.06);
       pointer-events: none;
     }
+    .orbit-ring-glow {
+      border: 1px solid rgba(249, 115, 22, 0.15);
+      box-shadow: 0 0 20px rgba(249, 115, 22, 0.08);
+    }
+    .orbit-ring-dashed {
+      border: 2px dashed rgba(100, 116, 139, 0.12);
+    }
+    .orbit-ring-dotted {
+      border: 3px dotted rgba(99, 102, 241, 0.15);
+    }
+    .orbit-ring-gradient {
+      border: none;
+      background: conic-gradient(from 0deg, transparent 0%, rgba(249, 115, 22, 0.1) 25%, transparent 50%, rgba(99, 102, 241, 0.1) 75%, transparent 100%);
+      -webkit-mask: radial-gradient(transparent 68%, black 69%);
+      mask: radial-gradient(transparent 68%, black 69%);
+    }
+    .orbit-ring-pulse {
+      animation: ring-pulse 4s ease-in-out infinite;
+    }
+    @keyframes ring-pulse {
+      0%, 100% { opacity: 0.3; transform: scale(1) rotateX(5deg) rotateY(-15deg); }
+      50% { opacity: 0.6; transform: scale(1.02) rotateX(5deg) rotateY(-15deg); }
+    }
+    .orbit-ring-double {
+      border: 4px double rgba(16, 185, 129, 0.12);
+    }
+
+    /* ====== Orbit 气泡样式 ====== */
+    .orbit-bubble {
+      backdrop-filter: blur(4px);
+      transition: all 0.3s ease;
+      transform: perspective(600px) var(--tilt, rotateX(15deg) rotateY(-10deg));
+      transform-style: preserve-3d;
+    }
+    .orbit-bubble:hover {
+      transform: perspective(600px) rotateX(0deg) rotateY(0deg) scale(1.15);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
+
+    /* ====== 3D 环绕场景 ====== */
+    .orbit-scene {
+      position: relative;
+      width: 480px;
+      height: 480px;
+      flex-shrink: 0;
+      perspective: 1200px;
+      transform-style: preserve-3d;
+    }
+    .orbit-rings {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+    }
+    .orbit-rings .orbit-ring {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: var(--size);
+      height: var(--size);
+      margin-left: calc(var(--size) / -2);
+      margin-top: calc(var(--size) / -2);
+    }
+    .orbit-bubbles-container {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      pointer-events: none;
+    }
+    .orbit-bubble-wrap {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform-style: preserve-3d;
+      pointer-events: auto;
+      transition: opacity 0.3s ease;
+      will-change: transform, z-index;
+    }
+    .orbit-bubble-inner {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid;
+      backdrop-filter: blur(4px);
+      transform: perspective(600px) var(--tilt);
+      transform-style: preserve-3d;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+    .orbit-bubble-inner:hover {
+      transform: perspective(600px) rotateX(0deg) rotateY(0deg) scale(1.15);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.2) !important;
+      z-index: 100 !important;
+    }
+    .orbit-card-layer {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      transform: translateZ(0);
+      pointer-events: none;
+    }
+    .orbit-card-layer > * {
+      pointer-events: auto;
+    }
+
+    /* ====== 3D 立体证件照卡片 ====== */
+    .hero-photo-card {
+      background: linear-gradient(145deg, #ffffff 0%, #f0f1f3 50%, #e2e4e8 100%);
+      border-radius: 20px;
+      padding: 10px;
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.04),
+        0 8px 16px rgba(0,0,0,0.06),
+        0 20px 40px rgba(0,0,0,0.08),
+        0 40px 80px rgba(0,0,0,0.04),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.6);
+      transform-style: preserve-3d;
+      transform: perspective(800px) rotateY(-8deg) rotateX(5deg);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+    }
+    .hero-photo-card:hover {
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.04),
+        0 12px 24px rgba(0,0,0,0.08),
+        0 30px 60px rgba(0,0,0,0.1),
+        0 50px 100px rgba(0,0,0,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+    .photo-frame {
+      width: 130px;
+      height: 170px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow:
+        inset 0 2px 4px rgba(0,0,0,0.1),
+        0 4px 12px rgba(0,0,0,0.08);
+      position: relative;
+    }
+    .photo-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%, rgba(0,0,0,0.05) 100%);
+      pointer-events: none;
+    }
+    .photo-info {
+      text-align: center;
+      padding: 10px 6px 4px;
+    }
 
     /* ====== 脉冲动画 ====== */
     @keyframes pulse-glow {
@@ -113,13 +270,21 @@ const navLinks = [
     }
     .pulse-anim { animation: pulse-glow 2s infinite; }
 
-    /* ====== 无限滚动 ====== */
+    /* ====== 无限滚动 - 真正无缝循环 ====== */
     @keyframes scroll-x {
       0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      100% { transform: translateX(-33.333%); }
     }
-    .scroll-infinite { animation: scroll-x 25s linear infinite; }
+    .scroll-infinite {
+      animation: scroll-x 30s linear infinite;
+      will-change: transform;
+    }
     .scroll-infinite:hover { animation-play-state: paused; }
+    /* GPU加速 */
+    .scroll-infinite > * {
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
 
     /* ====== 滚动视差 ====== */
     .reveal {
@@ -173,9 +338,54 @@ const navLinks = [
     .link-underline:hover::after {
       transform: scaleX(1);
     }
+
+    /* ====== 全页面马赛克水波纹效果 ====== */
+    .mosaic-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9998;
+      overflow: hidden;
+    }
+    .mosaic-cell {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      opacity: 0;
+      transform: scale(0);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      mix-blend-mode: soft-light;
+    }
+    .mosaic-cell.active {
+      opacity: 0.08;
+      transform: scale(1);
+    }
+    .mosaic-cell.wave {
+      animation: mosaic-wave 1.2s ease-out forwards;
+    }
+    @keyframes mosaic-wave {
+      0% {
+        opacity: 0.15;
+        transform: scale(0.3);
+      }
+      50% {
+        opacity: 0.08;
+        transform: scale(1.3);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(2.5);
+      }
+    }
   </style>
 </head>
 <body class="min-h-screen text-slate-700 antialiased">
+  <!-- 全页面马赛克水波纹层 -->
+  <div id="mosaic-overlay" class="mosaic-overlay"></div>
 
   <!-- 导航 -->
   <header class="fixed top-0 left-0 right-0 z-50 px-4 lg:px-16 xl:px-32 2xl:px-44 h-[65px] flex items-center justify-between backdrop-blur-[2px] bg-gradient-to-b from-gray-50 to-gray-50/0 border-b border-gray-300/10">
@@ -225,6 +435,123 @@ const navLinks = [
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
+
+    // 全页面马赛克水波纹效果
+    (function() {
+      const overlay = document.getElementById('mosaic-overlay');
+      if (!overlay) return;
+
+      const colors = ['#F97316', '#EA580C', '#FB923C', '#FDBA74', '#FED7AA', '#1e293b', '#334155', '#475569'];
+      const cellSize = 24;
+      const gap = 8;
+      const activationRadius = 90;
+
+      // 计算网格数量
+      const cols = Math.ceil(window.innerWidth / (cellSize + gap)) + 2;
+      const rows = Math.ceil(window.innerHeight / (cellSize + gap)) + 2;
+      const cells = [];
+
+      // 创建全页面马赛克网格
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          const cell = document.createElement('div');
+          cell.className = 'mosaic-cell';
+          cell.style.left = `${j * (cellSize + gap)}px`;
+          cell.style.top = `${i * (cellSize + gap)}px`;
+          cell.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          overlay.appendChild(cell);
+          cells.push({
+            el: cell,
+            x: j * (cellSize + gap) + cellSize / 2,
+            y: i * (cellSize + gap) + cellSize / 2
+          });
+        }
+      }
+
+      let mouseX = -1000, mouseY = -1000;
+      let lastMouseX = -1000, lastMouseY = -1000;
+      let isMoving = false;
+      let isIdle = false;
+      let moveTimeout = null;
+      let idleTimeout = null;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        isMoving = true;
+        isIdle = false;
+
+        clearTimeout(moveTimeout);
+        clearTimeout(idleTimeout);
+        moveTimeout = setTimeout(() => {
+          isMoving = false;
+          lastMouseX = mouseX;
+          lastMouseY = mouseY;
+        }, 150);
+        // 鼠标停止2秒后进入idle状态，马赛克消失
+        idleTimeout = setTimeout(() => {
+          isIdle = true;
+        }, 2000);
+      });
+
+      // 检测鼠标移动速度
+      function getMouseSpeed() {
+        const dx = mouseX - lastMouseX;
+        const dy = mouseY - lastMouseY;
+        return Math.sqrt(dx * dx + dy * dy);
+      }
+
+      let frameCount = 0;
+
+      function animate() {
+        frameCount++;
+        const speed = getMouseSpeed();
+        lastMouseX = mouseX;
+        lastMouseY = mouseY;
+
+        // 每3帧更新一次，优化性能
+        if (frameCount % 3 === 0) {
+          cells.forEach((cell) => {
+            // idle状态下所有格子消失
+            if (isIdle) {
+              cell.el.classList.remove('active');
+              return;
+            }
+
+            const distance = Math.sqrt(
+              Math.pow(mouseX - cell.x, 2) + Math.pow(mouseY - cell.y, 2)
+            );
+
+            if (distance < activationRadius) {
+              const intensity = 1 - (distance / activationRadius);
+
+              if (!cell.el.classList.contains('active')) {
+                cell.el.classList.add('active');
+
+                // 根据鼠标速度和水波纹概率触发效果
+                const waveChance = isMoving ? 0.3 + (speed * 0.01) : 0.1;
+                if (Math.random() < waveChance * intensity) {
+                  cell.el.classList.remove('wave');
+                  void cell.el.offsetWidth;
+                  cell.el.classList.add('wave');
+                }
+              }
+            } else {
+              cell.el.classList.remove('active');
+            }
+          });
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      // 窗口大小改变时重新计算
+      window.addEventListener('resize', () => {
+        location.reload();
+      });
+    })();
   </script>
 </body>
 </html>
