@@ -3,16 +3,15 @@
 const awards = "国家奖学金 · 国家励志奖学金 · 全国大学生计算机设计大赛 AI 组省级三等奖 · 专业一等奖学金";
 const roles = ["测试开发工程师", "Vibe coder", "Prompt Engineer", "自动化测试工程师", "终身学习者"];
 
-// 精简为 8 个气泡
 const bubbles = [
-  { rx: 95, ry: 55, speed: 14, startAngle: 20, color: "#3776AB", label: "PyTest", icon: "test", tilt: "rotateX(20deg) rotateY(-15deg)" },
-  { rx: 110, ry: 65, speed: 16, startAngle: 85, color: "#F97316", label: "ADB", icon: "mobile", tilt: "rotateX(15deg) rotateY(10deg)" },
-  { rx: 140, ry: 75, speed: 20, startAngle: 40, color: "#84CC16", label: "Apifox", icon: "api", tilt: "rotateX(-10deg) rotateY(20deg)" },
-  { rx: 145, ry: 80, speed: 22, startAngle: 120, color: "#4B8BBE", label: "Python", icon: "code", tilt: "rotateX(-5deg) rotateY(25deg)" },
-  { rx: 130, ry: 78, speed: 24, startAngle: 180, color: "#F05032", label: "Git", icon: "git", tilt: "rotateX(-8deg) rotateY(-20deg)" },
-  { rx: 175, ry: 95, speed: 28, startAngle: 60, color: "#6366F1", label: "uiautomator2", icon: "robot", tilt: "rotateX(-20deg) rotateY(-10deg)" },
-  { rx: 180, ry: 100, speed: 30, startAngle: 140, color: "#0EA5E9", label: "CANOE", icon: "car", tilt: "rotateX(12deg) rotateY(-25deg)" },
-  { rx: 170, ry: 90, speed: 32, startAngle: 210, color: "#7C3AED", label: "AI Agent", icon: "ai", tilt: "rotateX(22deg) rotateY(-12deg)" },
+  { radius: 130, phi: 12,  speed: 14, startTheta: 0,   color: "#3776AB", label: "PyTest",       icon: "test",  tilt: "rotateX(20deg) rotateY(-15deg)" },
+  { radius: 150, phi: 55,  speed: 16, startTheta: 45,  color: "#F97316", label: "ADB",          icon: "mobile",tilt: "rotateX(15deg) rotateY(10deg)" },
+  { radius: 170, phi: 80,  speed: 20, startTheta: 90,  color: "#84CC16", label: "Apifox",       icon: "api",   tilt: "rotateX(-10deg) rotateY(20deg)" },
+  { radius: 160, phi: 105, speed: 22, startTheta: 135, color: "#4B8BBE", label: "Python",       icon: "code",  tilt: "rotateX(-5deg) rotateY(25deg)" },
+  { radius: 140, phi: 130, speed: 24, startTheta: 180, color: "#F05032", label: "Git",          icon: "git",   tilt: "rotateX(-8deg) rotateY(-20deg)" },
+  { radius: 180, phi: 90,  speed: 28, startTheta: 225, color: "#6366F1", label: "uiautomator2", icon: "robot", tilt: "rotateX(-20deg) rotateY(-10deg)" },
+  { radius: 190, phi: 95,  speed: 30, startTheta: 270, color: "#0EA5E9", label: "CANOE",        icon: "car",   tilt: "rotateX(12deg) rotateY(-25deg)" },
+  { radius: 150, phi: 150, speed: 32, startTheta: 315, color: "#7C3AED", label: "AI Agent",     icon: "ai",   tilt: "rotateX(22deg) rotateY(-12deg)" },
 ];
 ---
 
@@ -34,18 +33,18 @@ const bubbles = [
     </div>
 
     <!-- 教育背景卡片（精简装饰） -->
-    <div class="card-white p-5 mt-4 reveal">
-      <div class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-xl bg-brand-100 flex items-center justify-center flex-shrink-0">
-          <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+    <div class="card-white p-3 sm:p-4 md:p-5 mt-4 reveal w-full md:w-auto">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-xl bg-brand-100 flex items-center justify-center flex-shrink-0">
+          <svg class="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
         </div>
-        <div>
-          <p class="text-slate-800 font-semibold text-sm">武汉城市学院 · 软件工程 · 2026届</p>
-          <p class="text-slate-400 text-xs">专业前5% · 本科</p>
+        <div class="min-w-0 flex-1">
+          <p class="text-slate-800 font-semibold text-[13px] sm:text-sm">武汉城市学院 · 软件工程 · 2026届</p>
+          <p class="text-slate-400 text-[11px] sm:text-xs">专业前5% · 本科</p>
         </div>
       </div>
-      <div class="mt-3 pt-3 border-t border-slate-100">
-        <p class="text-slate-400 text-xs leading-relaxed tracking-wide">{awards}</p>
+      <div class="mt-2.5 sm:mt-3 pt-2.5 sm:pt-3 border-t border-slate-100">
+        <p class="text-slate-400 text-[10px] sm:text-[11px] md:text-xs leading-relaxed tracking-wide break-words">{awards}</p>
       </div>
     </div>
   </div>
@@ -65,25 +64,25 @@ const bubbles = [
       {bubbles.map((o, i) => (
         <div 
           class="orbit-bubble-wrap"
-          data-rx={o.rx}
-          data-ry={o.ry}
+          data-radius={o.radius}
+          data-phi={o.phi}
           data-speed={o.speed}
-          data-start-angle={o.startAngle}
-          style={`--rx: ${o.rx}px; --ry: ${o.ry}px; --speed: ${o.speed}s; --start-angle: ${o.startAngle}deg; --delay: ${i * -0.5}s;`}
+          data-start-theta={o.startTheta}
+          style={`--radius: ${o.radius}px; --phi: ${o.phi}deg; --speed: ${o.speed}s; --start-theta: ${o.startTheta}deg; --delay: ${i * -0.5}s;`}
         >
           <div 
             class="orbit-bubble-inner"
-            style={`border-color: ${o.color}; --tilt: ${o.tilt}; box-shadow: 0 4px 14px ${o.color}20;`}
+            style={`border-color: ${o.color}; --tilt: ${o.tilt}; box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 0 18px ${o.color}40, 0 4px 12px rgba(0,0,0,0.06);`}
           >
-            {o.icon === 'test' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>}
-            {o.icon === 'code' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>}
-            {o.icon === 'mobile' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>}
-            {o.icon === 'robot' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>}
-            {o.icon === 'git' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>}
-            {o.icon === 'ai' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>}
-            {o.icon === 'car' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17h8M8 17v4h8v-4M8 17H5a2 2 0 01-2-2V7c0-1.1.9-2 2-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3"/></svg>}
-            {o.icon === 'api' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>}
-            <span class="font-medium whitespace-nowrap" style={`color: ${o.color}; font-size: 11px;`}>{o.label}</span>
+            {o.icon === 'test' && <svg class="w-4 h-4" style={`color: ${o.color}; filter: drop-shadow(0 0 6px ${o.color}60);`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>}
+            {o.icon === 'code' && <svg class="w-4 h-4" style={`color: ${o.color}; filter: drop-shadow(0 0 6px ${o.color}60);`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>}
+            {o.icon === 'mobile' && <svg class="w-4 h-4" style={`color: ${o.color}; filter: drop-shadow(0 0 6px ${o.color}60);`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>}
+            {o.icon === 'robot' && <svg class="w-4 h-4" style={`color: ${o.color}; filter: drop-shadow(0 0 6px ${o.color}60);`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>}
+            {o.icon === 'git' && <svg class="w-4 h-4" style={`color: ${o.color}; filter: drop-shadow(0 0 6px ${o.color}60);`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>}
+            {o.icon === 'ai' && <svg class="w-4 h-4" style={`color: ${o.color}; filter: drop-shadow(0 0 6px ${o.color}60);`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>}
+            {o.icon === 'car' && <svg class="w-4 h-4" style={`color: ${o.color}; filter: drop-shadow(0 0 6px ${o.color}60);`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17h8M8 17v4h8v-4M8 17H5a2 2 0 01-2-2V7c0-1.1.9-2 2-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3"/></svg>}
+            {o.icon === 'api' && <svg class="w-4 h-4" style={`color: ${o.color}; filter: drop-shadow(0 0 6px ${o.color}60);`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>}
+            <span class="font-medium whitespace-nowrap" style={`color: ${o.color}; font-size: 12px; text-shadow: 0 0 8px ${o.color}60;`}>{o.label}</span>
           </div>
         </div>
       ))}
@@ -130,45 +129,132 @@ const bubbles = [
     });
   }
 
-    // 气泡动画 - 椭圆轨道 + 自然层次过渡
-  const bubbleWraps = document.querySelectorAll('.orbit-bubble-wrap');
+        // 气泡动画 - 3D 球面环绕 + 拖拽交互
+  const bubbleWraps = document.querySelectorAll(".orbit-bubble-wrap");
   bubbleWraps.forEach((wrap) => {
-    const rx = parseFloat(wrap.dataset.rx);
-    const ry = parseFloat(wrap.dataset.ry);
+    const radius = parseFloat(wrap.dataset.radius);
+    const phiDeg = parseFloat(wrap.dataset.phi);
     const speed = parseFloat(wrap.dataset.speed);
-    const startAngle = parseFloat(wrap.dataset.startAngle);
+    const startTheta = parseFloat(wrap.dataset.startTheta);
 
-    let angle = startAngle;
+    const phiRad = phiDeg * Math.PI / 180;
+    let theta = startTheta;
     let lastTime = performance.now();
-    const inner = wrap.querySelector('.orbit-bubble-inner');
+    let paused = false;
+    let rafId = null;
+    let dragging = false;
+    let dragOffsetX = 0, dragOffsetY = 0;
+    let dragStartX = 0, dragStartY = 0;
+    let returnAnimId = null;
+
+    const inner = wrap.querySelector(".orbit-bubble-inner");
+
+    // ---- 鼠标拖拽 ----
+    function onPointerDown(e) {
+      paused = true;
+      dragging = true;
+      if (returnAnimId) { cancelAnimationFrame(returnAnimId); returnAnimId = null; }
+      wrap.style.transition = "none";
+      const rect = wrap.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      dragOffsetX = e.clientX - cx;
+      dragOffsetY = e.clientY - cy;
+      dragStartX = cx;
+      dragStartY = cy;
+      wrap.style.zIndex = 999;
+      wrap.style.filter = "drop-shadow(0 12px 32px rgba(0,0,0,0.2))";
+      document.addEventListener("pointermove", onPointerMove);
+      document.addEventListener("pointerup", onPointerUp);
+    }
+
+    function onPointerMove(e) {
+      if (!dragging) return;
+      const scene = wrap.closest(".orbit-scene");
+      const sr = scene.getBoundingClientRect();
+      const nx = e.clientX - sr.left - sr.width / 2 - dragOffsetX;
+      const ny = e.clientY - sr.top - sr.height / 2 - dragOffsetY;
+      wrap.style.transform = `translate(calc(-50% + ${nx}px), calc(-50% + ${ny}px)) translateZ(120px) scale(1.15)`;
+      wrap.style.opacity = "1";
+    }
+
+    function onPointerUp(e) {
+      dragging = false;
+      document.removeEventListener("pointermove", onPointerMove);
+      document.removeEventListener("pointerup", onPointerUp);
+      const scene = wrap.closest(".orbit-scene");
+      const sr = scene.getBoundingClientRect();
+      const cx = e.clientX - sr.left - sr.width / 2;
+      const cy = e.clientY - sr.top - sr.height / 2;
+      const rawAngle = Math.atan2(cy, cx) * 180 / Math.PI;
+      theta = ((rawAngle % 360) + 360) % 360;
+
+      let progress = 0;
+      const startZ = 120;
+      const startScale = 1.15;
+      const startCx = cx;
+      const startCy = cy;
+
+      function returnAnim() {
+        progress += 0.04;
+        if (progress >= 1) {
+          progress = 1;
+          returnAnimId = null;
+          wrap.style.transition = "";
+          paused = false;
+          return;
+        }
+        const t = 1 - Math.pow(1 - progress, 3);
+        const curX = startCx * (1 - t);
+        const curY = startCy * (1 - t);
+        const curZ = startZ * (1 - t);
+        const curScale = 1 + (startScale - 1) * (1 - t);
+        wrap.style.transform = `translate(calc(-50% + ${curX}px), calc(-50% + ${curY}px)) translateZ(${curZ}px) scale(${curScale})`;
+        wrap.style.opacity = 1 - (1 - t) * 0.3;
+        returnAnimId = requestAnimationFrame(returnAnim);
+      }
+      returnAnimId = requestAnimationFrame(returnAnim);
+    }
+
+    wrap.addEventListener("pointerdown", onPointerDown);
+
+    // ---- 悬停暂停 ----
+    wrap.addEventListener("mouseenter", () => { if (!dragging) paused = true; });
+    wrap.addEventListener("mouseleave", () => { if (!dragging) paused = false; });
 
     function animate(currentTime) {
-      const deltaTime = (currentTime - lastTime) / 1000;
-      lastTime = currentTime;
-      angle += (360 / speed) * deltaTime;
-      if (angle >= 360) angle -= 360;
-      const rad = angle * Math.PI / 180;
-      const x = rx * Math.cos(rad);
-      const y = ry * Math.sin(rad);
+      if (dragging) {
+        rafId = requestAnimationFrame(animate);
+        return;
+      }
+      if (!paused) {
+        const deltaTime = (currentTime - lastTime) / 1000;
+        lastTime = currentTime;
+        theta += (360 / speed) * deltaTime;
+        if (theta >= 360) theta -= 360;
+      }
+      const thetaRad = theta * Math.PI / 180;
 
-      // 在前半边是正面，后半边是背面，用 smoothstep 做自然过渡
-      const raw = Math.sin(rad);
-      const isFront = raw > 0;
-      // smoothstep: 3t² - 2t³
-      const t = Math.max(0, Math.min(1, (raw + 1) / 2));
-      const smooth = t * t * (3 - 2 * t);
+      // 球面坐标: φ=极角(高度), θ=方位角(水平旋转)
+      const x = radius * Math.sin(phiRad) * Math.sin(thetaRad);
+      const y = -radius * Math.cos(phiRad);
+
+      const forward = Math.cos(thetaRad);
+      const smooth = (forward + 1) / 2;
 
       const zIndex = Math.round(10 + smooth * 15);
-      const z = -60 + smooth * 100;
-      const scaleVal = 0.88 + smooth * 0.17;
-      const opacityVal = 0.75 + smooth * 0.25;
+      const z = -100 + smooth * 180;
+      const scaleVal = 0.75 + smooth * 0.35;
+      const opacityVal = 0.6 + smooth * 0.4;
+      const shadowBlur = 4 + smooth * 20;
 
       wrap.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) translateZ(${z}px) scale(${scaleVal})`;
       wrap.style.zIndex = zIndex;
       wrap.style.opacity = opacityVal;
-      requestAnimationFrame(animate);
+      if (!paused) {
+        wrap.style.filter = `drop-shadow(0 ${4 + smooth * 8}px ${shadowBlur}px rgba(0,0,0,0.08))`;
+      }
+      rafId = requestAnimationFrame(animate);
     }
-    requestAnimationFrame(animate);
+    rafId = requestAnimationFrame(animate);
   });
-</script>
-
