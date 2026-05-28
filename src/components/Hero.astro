@@ -183,11 +183,12 @@ const bubbles = [
       b.dragOffsetY = e.clientY - (rect.top + rect.height / 2);
       wrap.style.zIndex = "999";
       wrap.style.filter = "drop-shadow(0 12px 32px rgba(0,0,0,0.2))";
-      document.addEventListener("pointermove", onPointerMove);
+      document.addEventListener("pointermove", onPointerMove, { passive: false });
       document.addEventListener("pointerup", onPointerUp);
     }
     function onPointerMove(e) {
       if (!b.dragging) return;
+      e.preventDefault();
       const scene = wrap.closest(".orbit-scene");
       const sr = scene.getBoundingClientRect();
       const nx = e.clientX - sr.left - sr.width / 2 - b.dragOffsetX;

@@ -182,6 +182,7 @@ body {
   transform-style: preserve-3d;
   pointer-events: auto;
   will-change: transform;
+  touch-action: none;
 }
 .orbit-bubble-inner {
   display: flex;
