@@ -233,10 +233,37 @@ const bubbles = [
     wrap.addEventListener("mouseleave", () => { if (!b.dragging) b.paused = false; });
   });
 
+  // ---- 可见性检测：页面隐藏或不在视口时停止动画 ----
+  let pageVisible = !document.hidden;
+  let sceneInView = true;
+
+  document.addEventListener('visibilitychange', () => {
+    pageVisible = !document.hidden;
+    if (pageVisible) lastTime = performance.now();
+  });
+
+  const orbitScene = document.querySelector('.orbit-scene');
+  if (orbitScene && 'IntersectionObserver' in window) {
+    new IntersectionObserver(
+      (entries) => {
+        sceneInView = entries[0].isIntersecting;
+        if (sceneInView) lastTime = performance.now();
+      },
+      { threshold: 0.05 }
+    ).observe(orbitScene);
+  }
+
   // ---- 合并后的单个 rAF 循环 ----
   let lastTime = performance.now();
 
   function animateAll(currentTime) {
+    const isActive = pageVisible && sceneInView;
+    if (!isActive) {
+      lastTime = performance.now();
+      requestAnimationFrame(animateAll);
+      return;
+    }
+
     const deltaTime = (currentTime - lastTime) / 1000;
     lastTime = currentTime;
 
@@ -253,7 +280,6 @@ const bubbles = [
       const y = -r * Math.cos(b.phiRad);
       const smooth = (Math.cos(thetaRad) + 1) / 2;
 
-      // 只用 transform 驱动，z-index 和 opacity 用 scale 表达前后关系
       const zVal = -100 + smooth * 180;
       const scaleVal = 0.75 + smooth * 0.35;
 
