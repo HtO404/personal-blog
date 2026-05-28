@@ -261,6 +261,33 @@ body {
   pointer-events: auto;
 }
 
+/* ---- 进度指示条 ---- */
+.orbit-progress {
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 3px;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 9999px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.orbit-progress.visible {
+  opacity: 1;
+}
+.orbit-progress-bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #6366F1, #7C3AED, #6366F1);
+  background-size: 200% 100%;
+  transition: width 0.3s linear;
+  will-change: width;
+}
+
 /* ---- 3D 证件照卡片 ---- */
 .hero-photo-card {
   background: linear-gradient(145deg, #ffffff 0%, #f0f1f3 50%, #e2e4e8 100%);
@@ -316,10 +343,11 @@ body {
 .reveal {
   opacity: 0;
   transform: translateY(50px) scale(0.95);
-  transition: opacity 0.9s cubic-bezier(0.5, 0, 0, 1), transform 0.9s cubic-bezier(0.5, 0, 0, 1);
+  transition: opacity 0.5s cubic-bezier(0.5, 0, 0, 1), transform 0.5s cubic-bezier(0.5, 0, 0, 1);
+  will-change: transform, opacity;
 }
 .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
-.reveal.half { opacity: 0.5; transform: translateY(30px) scale(0.95); }
+.reveal.half { opacity: 0.6; transform: translateY(20px) scale(0.97); }
 
 /* ---- 字母逐字渐入 ---- */
 .char-blur-in {

@@ -290,14 +290,7 @@ const navLinks = [
       backface-visibility: hidden;
     }
 
-    /* ====== 滚动视差 ====== */
-    .reveal {
-      opacity: 0;
-      transform: translateY(50px) scale(0.95);
-      transition: opacity 0.9s cubic-bezier(0.5, 0, 0, 1), transform 0.9s cubic-bezier(0.5, 0, 0, 1);
-    }
-    .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
-    .reveal.half { opacity: 0.5; transform: translateY(30px) scale(0.95); }
+    /* ====== 滚动视差由 layout.css 统一定义 ====== */
 
     /* ====== 悬浮 ====== */
     .card-white, .card-light, .card-dark {
@@ -419,18 +412,37 @@ const navLinks = [
   </footer>
 
   <script>
-    // 滚动视差
+    // 滚动视差 — rootMargin 偏移 fixed header 高度避免跳闪
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const el = entry.target;
         if (entry.isIntersecting) {
           const ratio = entry.intersectionRatio;
-          if (ratio >= 0.8) { el.classList.add('active'); el.classList.remove('half'); }
-          else if (ratio >= 0.3) { el.classList.add('half'); el.classList.remove('active'); }
-        } else { el.classList.remove('active', 'half'); }
+          if (ratio >= 0.6) {
+            el.classList.add('active');
+            el.classList.remove('half');
+          } else if (ratio >= 0.1) {
+            el.classList.add('half');
+            el.classList.remove('active');
+          } else {
+            el.classList.remove('active', 'half');
+          }
+        } else {
+          el.classList.remove('active', 'half');
+        }
       });
-    }, { threshold: [0, 0.3, 0.8, 1] });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }, {
+      rootMargin: '-65px 0px 0px 0px',
+      threshold: [0, 0.1, 0.4, 0.6, 1]
+    });
+    document.querySelectorAll('.reveal').forEach(el => {
+      // 初始化：已在视口内的立即激活
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight - 65 && r.bottom > 65) {
+        el.classList.add('active');
+      }
+      observer.observe(el);
+    });
 
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', function(e) {

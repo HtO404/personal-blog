@@ -101,6 +101,11 @@ const bubbles = [
         </div>
       </div>
     </div>
+
+    <!-- 进度指示条 -->
+    <div class="orbit-progress">
+      <div id="orbit-progress-bar" class="orbit-progress-bar"></div>
+    </div>
   </div>
 </section>
 
@@ -177,6 +182,7 @@ const bubbles = [
       b.paused = true;
       b.dragging = true;
       if (b.returnAnimId) { cancelAnimationFrame(b.returnAnimId); b.returnAnimId = null; }
+      resetProgress();
       wrap.style.transition = "none";
       const rect = wrap.getBoundingClientRect();
       b.dragOffsetX = e.clientX - (rect.left + rect.width / 2);
@@ -233,45 +239,138 @@ const bubbles = [
     wrap.addEventListener("mouseleave", () => { if (!b.dragging) b.paused = false; });
   });
 
-  // ---- 可见性检测：页面隐藏或不在视口时停止动画 ----
-  let pageVisible = !document.hidden;
-  let sceneInView = true;
-
-  document.addEventListener('visibilitychange', () => {
-    pageVisible = !document.hidden;
-    if (pageVisible) lastTime = performance.now();
-  });
-
+  // ==========================================
+  // 进度条 + 注意力监听 统一调度
+  // ==========================================
+  const progressBar = document.getElementById('orbit-progress-bar');
+  const progressWrap = progressBar?.parentElement;
   const orbitScene = document.querySelector('.orbit-scene');
+
+  const ANIM_RUN = 20000;   // 环绕 20 秒
+  const ANIM_PAUSE = 5000;  // 暂停 5 秒
+  let progressPercent = 0;  // 0→100 环绕中 / 100→0 暂停中
+  let animActive = true;    // true=环绕 / false=暂停
+  let isVisible = true;     // 场景在视口 + 页面激活
+
+  // ---- 可见性：IntersectionObserver (50% 可见才算) + Page Visibility ----
   if (orbitScene && 'IntersectionObserver' in window) {
     new IntersectionObserver(
       (entries) => {
-        sceneInView = entries[0].isIntersecting;
-        if (sceneInView) lastTime = performance.now();
+        const inView = entries[0].isIntersecting;
+        if (!inView && animActive) {
+          animActive = false;
+          if (progressBar) progressBar.style.transition = 'width 0.8s ease';
+        }
+        // 回到视野时在 animateAll 里自动恢复
       },
-      { threshold: 0.05 }
+      { threshold: 0.5 }
     ).observe(orbitScene);
   }
 
-  // ---- 合并后的单个 rAF 循环 ----
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && animActive) {
+      animActive = false;
+      if (progressBar) progressBar.style.transition = 'width 0.8s ease';
+    }
+  });
+
+  function checkVisibility() {
+    if (!orbitScene) { isVisible = !document.hidden; return; }
+    const r = orbitScene.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const vw = window.innerWidth;
+    // 场景中心必须在视口内，且至少 30% 面积可见
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    const centerInView = cx > 0 && cx < vw && cy > 0 && cy < vh;
+    const visibleH = Math.min(r.bottom, vh) - Math.max(r.top, 0);
+    const ratio = visibleH > 0 ? visibleH / r.height : 0;
+    isVisible = centerInView && ratio > 0.3 && !document.hidden;
+
+    if (!isVisible && animActive) {
+      animActive = false;
+      if (progressBar) progressBar.style.transition = 'width 0.8s ease';
+    }
+  }
+
+  // ---- 用户交互：拖拽任一气泡 → 重置进度条、恢复环绕 ----
+  function resetProgress() {
+    progressPercent = 0;
+    animActive = true;
+    if (progressBar) {
+      progressBar.style.transition = 'width 0.3s linear';
+      progressBar.style.width = '0%';
+    }
+    if (progressWrap) progressWrap.classList.add('visible');
+    lastTime = performance.now();
+  }
+
+  // ---- 合并后的单 rAF 循环 ----
   let lastTime = performance.now();
 
   function animateAll(currentTime) {
-    const isActive = pageVisible && sceneInView;
-    if (!isActive) {
+    checkVisibility();
+
+    // 拖拽中？重置进度
+    const anyDragging = bubblesData.some(b => b.dragging);
+    if (anyDragging) resetProgress();
+
+    // 场景不可见 → 暂停环绕，进度条保持
+    if (!isVisible) {
       lastTime = performance.now();
       requestAnimationFrame(animateAll);
       return;
     }
 
-    const deltaTime = (currentTime - lastTime) / 1000;
+    const dt = Math.min((currentTime - lastTime) / 1000, 0.1);
     lastTime = currentTime;
+
+    // ---- 进度条驱动 ----
+    if (animActive) {
+      progressPercent += (100 / (ANIM_RUN / 1000)) * dt;
+      if (progressPercent >= 100) {
+        progressPercent = 100;
+        animActive = false;
+        if (progressBar) progressBar.style.transition = 'width 0.8s ease';
+      }
+    } else {
+      progressPercent -= (100 / (ANIM_PAUSE / 1000)) * dt;
+      if (progressPercent <= 0) {
+        progressPercent = 0;
+        animActive = true;
+        if (progressBar) {
+          progressBar.style.transition = 'width 0.3s linear';
+        }
+        if (progressWrap) progressWrap.classList.add('visible');
+      }
+    }
+
+    // 更新进度条
+    if (progressBar) {
+      progressBar.style.width = progressPercent + '%';
+    }
+    if (progressWrap) {
+      if (animActive) {
+        progressWrap.classList.add('visible');
+        progressWrap.classList.remove('paused');
+      } else {
+        progressWrap.classList.add('paused');
+        // 进度条回 0 时隐藏
+        if (progressPercent <= 1) progressWrap.classList.remove('visible');
+      }
+    }
+
+    // ---- 气泡环绕 ----
+    if (!animActive) {
+      requestAnimationFrame(animateAll);
+      return;
+    }
 
     for (let i = 0; i < bubblesData.length; i++) {
       const b = bubblesData[i];
       if (b.dragging) continue;
       if (!b.paused) {
-        b.theta += (360 / b.speed) * deltaTime;
+        b.theta += (360 / b.speed) * dt;
         if (b.theta >= 360) b.theta -= 360;
       }
       const thetaRad = b.theta * Math.PI / 180;
