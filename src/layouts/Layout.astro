@@ -518,6 +518,7 @@ const navLinks = [
       }
 
       let frameCount = 0;
+      let animFrameId = null;
 
       function animate() {
         frameCount++;
@@ -558,16 +559,79 @@ const navLinks = [
           });
         }
 
-        requestAnimationFrame(animate);
+        animFrameId = requestAnimationFrame(animate);
       }
 
-      animate();
+      animFrameId = requestAnimationFrame(animate);
 
-      // 窗口大小改变时重新计算
+      // 窗口大小改变时仅重建马赛克网格，不整页刷新（避免移动端滑动触发的 resize 导致刷新）
+      let resizeTimer = null;
       window.addEventListener('resize', () => {
-        location.reload();
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          // 停止旧动画循环
+          if (animFrameId) cancelAnimationFrame(animFrameId);
+          // 清空旧网格
+          overlay.innerHTML = '';
+          cells.length = 0;
+          // 重新计算行列
+          const newCols = Math.ceil(window.innerWidth / (cellSize + gap)) + 2;
+          const newRows = Math.ceil(window.innerHeight / (cellSize + gap)) + 2;
+          for (let i = 0; i < newRows; i++) {
+            for (let j = 0; j < newCols; j++) {
+              const cell = document.createElement('div');
+              cell.className = 'mosaic-cell';
+              cell.style.left = `${j * (cellSize + gap)}px`;
+              cell.style.top = `${i * (cellSize + gap)}px`;
+              cell.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+              overlay.appendChild(cell);
+              cells.push({
+                el: cell,
+                x: j * (cellSize + gap) + cellSize / 2,
+                y: i * (cellSize + gap) + cellSize / 2
+              });
+            }
+          }
+          // 重启动画循环
+          animFrameId = requestAnimationFrame(animate);
+        }, 300);
       });
     })();
+
+    // ---- 阻止手机端下拉刷新(兜底方案) ----
+    // overscroll-behavior 在某些 Android 浏览器不生效,需要 JS 拦截
+    let touchStartY = 0;
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+      const touchY = e.touches[0].clientY;
+      const touchX = e.touches[0].clientX;
+      const deltaY = touchY - touchStartY;
+      const deltaX = Math.abs(touchX - touchStartX);
+
+      // 横向滑动不拦截(避免影响轮播等)
+      if (deltaX > deltaY) return;
+
+      // 页面在顶部时继续下拉 → 阻止浏览器刷新
+      if (window.scrollY <= 0 && deltaY > 0) {
+        e.preventDefault();
+        return;
+      }
+
+      // 页面在底部时继续上拉 → 阻止过度滚动
+      const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+      if (atBottom && deltaY < 0) {
+        e.preventDefault();
+        return;
+      }
+
+      touchStartY = touchY;
+      touchStartX = touchX;
+    }, { passive: false });
   </script>
 </body>
 </html>
