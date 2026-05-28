@@ -133,11 +133,17 @@ body {
 
 .orbit-scene {
   position: relative;
-  width: 480px;
-  height: 480px;
+  width: 400px;
+  height: 400px;
   flex-shrink: 0;
   perspective: 1200px;
   transform-style: preserve-3d;
+}
+@media (min-width: 768px) {
+  .orbit-scene {
+    width: 520px;
+    height: 520px;
+  }
 }
 .orbit-rings {
   position: absolute;
@@ -152,6 +158,14 @@ body {
   height: var(--size);
   margin-left: calc(var(--size) / -2);
   margin-top: calc(var(--size) / -2);
+}
+@media (min-width: 768px) {
+  .orbit-rings .orbit-ring {
+    width: var(--size-md);
+    height: var(--size-md);
+    margin-left: calc(var(--size-md) / -2);
+    margin-top: calc(var(--size-md) / -2);
+  }
 }
 .orbit-bubbles-container {
   position: absolute;
@@ -172,8 +186,8 @@ body {
 .orbit-bubble-inner {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 10px 18px;
+  gap: 5px;
+  padding: 7px 12px;
   border-radius: 9999px;
   background: rgba(249, 250, 251, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -187,6 +201,12 @@ body {
     0 2px 8px rgba(0, 0, 0, 0.04);
   position: relative;
 }
+@media (min-width: 768px) {
+  .orbit-bubble-inner {
+    gap: 7px;
+    padding: 10px 18px;
+  }
+}
 .orbit-bubble-inner::after {
   content: "";
   position: absolute;
@@ -199,6 +219,16 @@ body {
   mix-blend-mode: soft-light;
   z-index: 0;
   opacity: 0.3;
+}
+
+/* 气泡文字响应式 */
+.orbit-bubble-inner span {
+  font-size: 10px;
+}
+@media (min-width: 768px) {
+  .orbit-bubble-inner span {
+    font-size: 12px;
+  }
 }
 .orbit-bubble-inner > * {
   position: relative;
