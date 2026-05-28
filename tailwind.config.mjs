@@ -15,11 +15,16 @@ export default {
           700: '#C2410C',
           800: '#9A3412',
           900: '#7C2D12',
-        }
+        },
+        accent: {
+          light: '#f1f5f9',
+          dark: '#1e293b',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'ui-sans-serif', 'sans-serif'],
         display: ['Coda', 'Inter', 'system-ui', 'sans-serif'],
+        fantasy: ['"Playfair Display"', 'Georgia', 'serif'],
       },
     },
   },

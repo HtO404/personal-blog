@@ -1,71 +1,66 @@
 ---
-// Hero — 轨道圆环 + 装饰色块 + 真实资料
+// Hero — 轨道圆环 + 3D证件照卡片
 const awards = "国家奖学金 · 国家励志奖学金 · 全国大学生计算机设计大赛 AI 组省级三等奖 · 专业一等奖学金";
 const roles = ["测试开发工程师", "Vibe coder", "Prompt Engineer", "自动化测试工程师", "终身学习者"];
 
-// 气泡配置：椭圆轨道参数 + 初始角度打乱
+// 精简为 8 个气泡
 const bubbles = [
-  // 内圈 - 小半径，快转速
-  { rx: 100, ry: 60, speed: 14, startAngle: 10, color: "#3776AB", label: "PyTest", icon: "test", tilt: "rotateX(20deg) rotateY(-15deg)" },
+  { rx: 95, ry: 55, speed: 14, startAngle: 20, color: "#3776AB", label: "PyTest", icon: "test", tilt: "rotateX(20deg) rotateY(-15deg)" },
   { rx: 110, ry: 65, speed: 16, startAngle: 85, color: "#F97316", label: "ADB", icon: "mobile", tilt: "rotateX(15deg) rotateY(10deg)" },
-  { rx: 95, ry: 55, speed: 18, startAngle: 160, color: "#84CC16", label: "Apifox", icon: "api", tilt: "rotateX(-10deg) rotateY(20deg)" },
-  // 中圈 - 中等半径
-  { rx: 145, ry: 85, speed: 20, startAngle: 35, color: "#4B8BBE", label: "Python", icon: "code", tilt: "rotateX(-5deg) rotateY(25deg)" },
-  { rx: 135, ry: 80, speed: 22, startAngle: 110, color: "#F05032", label: "Git", icon: "git", tilt: "rotateX(-8deg) rotateY(-20deg)" },
-  { rx: 140, ry: 78, speed: 24, startAngle: 175, color: "#8B5CF6", label: "SSH", icon: "code", tilt: "rotateX(25deg) rotateY(-5deg)" },
-  // 外圈 - 大半径，慢转速
-  { rx: 185, ry: 105, speed: 26, startAngle: 55, color: "#6366F1", label: "uiautomator2", icon: "robot", tilt: "rotateX(-20deg) rotateY(-10deg)" },
-  { rx: 175, ry: 100, speed: 28, startAngle: 130, color: "#10B981", label: "MAVLink", icon: "plane", tilt: "rotateX(18deg) rotateY(5deg)" },
-  { rx: 180, ry: 98, speed: 30, startAngle: 195, color: "#7C3AED", label: "AI Agent", icon: "ai", tilt: "rotateX(22deg) rotateY(-12deg)" },
-  { rx: 190, ry: 110, speed: 32, startAngle: 260, color: "#EC4899", label: "Selenium", icon: "web", tilt: "rotateX(-15deg) rotateY(18deg)" },
-  { rx: 195, ry: 115, speed: 34, startAngle: 320, color: "#0EA5E9", label: "CANOE", icon: "car", tilt: "rotateX(12deg) rotateY(-25deg)" },
-  { rx: 170, ry: 95, speed: 36, startAngle: 25, color: "#F59E0B", label: "Postman", icon: "api", tilt: "rotateX(8deg) rotateY(22deg)" },
+  { rx: 140, ry: 75, speed: 20, startAngle: 40, color: "#84CC16", label: "Apifox", icon: "api", tilt: "rotateX(-10deg) rotateY(20deg)" },
+  { rx: 145, ry: 80, speed: 22, startAngle: 120, color: "#4B8BBE", label: "Python", icon: "code", tilt: "rotateX(-5deg) rotateY(25deg)" },
+  { rx: 130, ry: 78, speed: 24, startAngle: 180, color: "#F05032", label: "Git", icon: "git", tilt: "rotateX(-8deg) rotateY(-20deg)" },
+  { rx: 175, ry: 95, speed: 28, startAngle: 60, color: "#6366F1", label: "uiautomator2", icon: "robot", tilt: "rotateX(-20deg) rotateY(-10deg)" },
+  { rx: 180, ry: 100, speed: 30, startAngle: 140, color: "#0EA5E9", label: "CANOE", icon: "car", tilt: "rotateX(12deg) rotateY(-25deg)" },
+  { rx: 170, ry: 90, speed: 32, startAngle: 210, color: "#7C3AED", label: "AI Agent", icon: "ai", tilt: "rotateX(22deg) rotateY(-12deg)" },
 ];
 ---
 
 <section id="home" class="w-full px-4 lg:px-16 xl:px-32 2xl:px-44 relative z-10 my-12 md:mt-40 md:mb-12 py-24 flex flex-wrap-reverse md:flex-nowrap items-center justify-center gap-12">
 
   <div class="flex flex-col items-start gap-4 flex-shrink-0">
-    <p class="text-lg font-bold text-slate-600">你好，我是</p>
-    <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
-      <span class="text-brand-500">如从</span>
+    <p class="text-lg font-semibold text-slate-500 tracking-wide">你好，我是</p>
+    <h1 class="font-fantasy text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+      <!-- 字母逐字渐入 -->
+      <span class="text-brand-500 inline-block">
+        {("如从").split('').map((c, i) => (
+          <span class="char-blur-in" style={`animation-delay: ${i * 0.15}s`}>{c}</span>
+        ))}
+      </span>
     </h1>
-    <p class="text-xl text-slate-500">测试开发 · Vibe Coding</p>
+    <p class="text-xl text-slate-500 font-light">测试开发 <span class="text-brand-300 mx-1">·</span> <a href="#contact" class="text-brand-500 hover:text-brand-600 transition-colors">Vibe Coder</a></p>
     <div class="h-8 overflow-hidden mt-2">
-      <p id="role-text" class="text-lg text-brand-500 font-semibold">测试开发工程师</p>
+      <p id="role-text" class="text-xl text-brand-500 font-semibold tabular-nums">测试开发工程师</p>
     </div>
-    
-    <!-- 教育背景卡片 -->
+
+    <!-- 教育背景卡片（精简装饰） -->
     <div class="card-white p-5 mt-4 reveal">
       <div class="flex items-center gap-3">
-        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center flex-shrink-0">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+        <div class="w-11 h-11 rounded-xl bg-brand-100 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
         </div>
         <div>
-          <p class="text-slate-800 font-semibold">武汉城市学院 · 软件工程 · 2026届</p>
-          <p class="text-slate-500 text-sm">专业前5% · 本科</p>
+          <p class="text-slate-800 font-semibold text-sm">武汉城市学院 · 软件工程 · 2026届</p>
+          <p class="text-slate-400 text-xs">专业前5% · 本科</p>
         </div>
       </div>
-      <div class="mt-3 pt-3 border-t border-slate-200/50">
-        <p class="text-slate-400 text-xs leading-relaxed">{awards}</p>
+      <div class="mt-3 pt-3 border-t border-slate-100">
+        <p class="text-slate-400 text-xs leading-relaxed tracking-wide">{awards}</p>
       </div>
     </div>
   </div>
 
   <!-- 3D 环绕场景 -->
   <div class="orbit-scene">
-
-    <!-- 轨道圆环 -->
+    <!-- 轨道圆环（保留 4 个精简） -->
     <div class="orbit-rings">
-      <div class="orbit-ring orbit-ring-glow" style="--size: 260px; transform: rotateX(20deg) rotateY(-10deg);"></div>
-      <div class="orbit-ring orbit-ring-dotted" style="--size: 300px; transform: rotateX(-15deg) rotateY(15deg);"></div>
-      <div class="orbit-ring" style="--size: 340px; border-width: 2px; transform: rotateX(10deg) rotateY(-5deg);"></div>
-      <div class="orbit-ring orbit-ring-dashed orbit-ring-gradient" style="--size: 380px; transform: rotateX(-20deg) rotateY(10deg);"></div>
-      <div class="orbit-ring orbit-ring-glow orbit-ring-pulse" style="--size: 420px; transform: rotateX(5deg) rotateY(-15deg);"></div>
-      <div class="orbit-ring orbit-ring-double" style="--size: 460px; transform: rotateX(-10deg) rotateY(20deg);"></div>
+      <div class="orbit-ring orbit-ring-glow" style="--size: 240px; transform: rotateX(20deg) rotateY(-10deg);"></div>
+      <div class="orbit-ring" style="--size: 280px; border-width: 2px; transform: rotateX(10deg) rotateY(-5deg);"></div>
+      <div class="orbit-ring orbit-ring-dashed" style="--size: 340px; transform: rotateX(-20deg) rotateY(10deg);"></div>
+      <div class="orbit-ring orbit-ring-gradient orbit-ring-pulse" style="--size: 400px; transform: rotateX(5deg) rotateY(-15deg);"></div>
     </div>
 
-    <!-- 所有气泡 - 椭圆轨道环绕，动态z-index -->
+    <!-- 气泡轨道 -->
     <div class="orbit-bubbles-container">
       {bubbles.map((o, i) => (
         <div 
@@ -78,16 +73,14 @@ const bubbles = [
         >
           <div 
             class="orbit-bubble-inner"
-            style={`border-color: ${o.color}; --tilt: ${o.tilt}; box-shadow: 0 4px 14px ${o.color}25;`}
+            style={`border-color: ${o.color}; --tilt: ${o.tilt}; box-shadow: 0 4px 14px ${o.color}20;`}
           >
             {o.icon === 'test' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>}
             {o.icon === 'code' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>}
             {o.icon === 'mobile' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>}
             {o.icon === 'robot' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>}
-            {o.icon === 'plane' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>}
             {o.icon === 'git' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>}
             {o.icon === 'ai' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>}
-            {o.icon === 'web' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>}
             {o.icon === 'car' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17h8M8 17v4h8v-4M8 17H5a2 2 0 01-2-2V7c0-1.1.9-2 2-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3"/></svg>}
             {o.icon === 'api' && <svg class="w-3.5 h-3.5" style={`color: ${o.color}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>}
             <span class="font-medium whitespace-nowrap" style={`color: ${o.color}; font-size: 11px;`}>{o.label}</span>
@@ -96,7 +89,7 @@ const bubbles = [
       ))}
     </div>
 
-    <!-- 3D 立体证件照卡片 - 中间层 -->
+    <!-- 3D 立体证件照卡片 -->
     <div class="card-3d-wrap orbit-card-layer">
       <div id="hero-card" class="card-3d hero-photo-card">
         <div class="photo-frame">
@@ -109,10 +102,6 @@ const bubbles = [
         </div>
       </div>
     </div>
-
-    <!-- 装饰色块 -->
-    <div class="absolute w-20 h-20 bg-brand-400/30 rounded-full -left-6 -bottom-6 blur-xl pointer-events-none"></div>
-    <div class="absolute w-12 h-12 bg-indigo-400/20 rounded-full top-12 left-12 blur-md pointer-events-none"></div>
   </div>
 </section>
 
@@ -125,7 +114,7 @@ const bubbles = [
     if (rt) { rt.style.opacity = '0'; rt.style.transform = 'translateY(-10px)';
       setTimeout(() => { rt.textContent = roles[ri]; rt.style.opacity = '1'; rt.style.transform = 'translateY(0)'; }, 200); }
   }, 3000);
-  
+
   // 3D 追踪 - 立体证件照卡片
   const card = document.getElementById('hero-card');
   if (card) {
@@ -141,48 +130,45 @@ const bubbles = [
     });
   }
 
-  // 气泡动画 - 椭圆轨道 + 动态z-index
+    // 气泡动画 - 椭圆轨道 + 自然层次过渡
   const bubbleWraps = document.querySelectorAll('.orbit-bubble-wrap');
   bubbleWraps.forEach((wrap) => {
     const rx = parseFloat(wrap.dataset.rx);
     const ry = parseFloat(wrap.dataset.ry);
     const speed = parseFloat(wrap.dataset.speed);
     const startAngle = parseFloat(wrap.dataset.startAngle);
-    
+
     let angle = startAngle;
     let lastTime = performance.now();
-    
+    const inner = wrap.querySelector('.orbit-bubble-inner');
+
     function animate(currentTime) {
       const deltaTime = (currentTime - lastTime) / 1000;
       lastTime = currentTime;
-      
-      // 更新角度 (度/秒)
       angle += (360 / speed) * deltaTime;
       if (angle >= 360) angle -= 360;
-      
       const rad = angle * Math.PI / 180;
-      
-      // 椭圆坐标
       const x = rx * Math.cos(rad);
       const y = ry * Math.sin(rad);
-      
-      // 计算z-index：下方(90-270度)时在前层
-      // sin(rad) > 0 表示在下方
-      const isFront = Math.sin(rad) > 0;
-      const zIndex = isFront ? 20 : 1;
-      
-      // 深度效果：下方时更靠近用户
-      const z = isFront ? 40 : -60;
-      const scale = isFront ? 1.05 : 0.95;
-      const opacity = isFront ? 1 : 0.85;
-      
-      wrap.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) translateZ(${z}px) scale(${scale})`;
+
+      // 在前半边是正面，后半边是背面，用 smoothstep 做自然过渡
+      const raw = Math.sin(rad);
+      const isFront = raw > 0;
+      // smoothstep: 3t² - 2t³
+      const t = Math.max(0, Math.min(1, (raw + 1) / 2));
+      const smooth = t * t * (3 - 2 * t);
+
+      const zIndex = Math.round(10 + smooth * 15);
+      const z = -60 + smooth * 100;
+      const scaleVal = 0.88 + smooth * 0.17;
+      const opacityVal = 0.75 + smooth * 0.25;
+
+      wrap.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) translateZ(${z}px) scale(${scaleVal})`;
       wrap.style.zIndex = zIndex;
-      wrap.style.opacity = opacity;
-      
+      wrap.style.opacity = opacityVal;
       requestAnimationFrame(animate);
     }
-    
     requestAnimationFrame(animate);
   });
 </script>
+

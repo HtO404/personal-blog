@@ -1,5 +1,4 @@
 ---
-// 技术实力 — 真实能力数据卡片
 const cards = [
   { label: "华测导航", sub: "无人机 AIBOX", v1: "50+", v1L: "提交工单", v2: "10+", v2L: "自动化脚本", color: "#1e293b" },
   { label: "华测导航", sub: "效率提升", v1: "300%", v1L: "效率提升", v2: "1000轮", v2L: "挂测电检", color: "#ea580c" },
@@ -10,17 +9,36 @@ const cards = [
   { label: "博彦科技", sub: "HP Smart", v1: "4平台", v1L: "多端覆盖", v2: "打印机", v2L: "核心功能", color: "#0369a1" },
   { label: "荣誉奖项", sub: "国家奖学金", v1: "Top5%", v1L: "专业排名", v2: "省级", v2L: "AI大赛奖", color: "#b45309" },
 ];
-// 使用两份复制实现无缝循环
 const items = [...cards, ...cards];
 ---
 
 <section id="influencer" class="w-full relative z-10 py-36 md:py-48 overflow-hidden">
   <div class="px-4 lg:px-16 xl:px-32 2xl:px-44 mb-12 reveal">
     <p class="text-brand-500 text-sm font-medium tracking-wider uppercase mb-3">Highlights</p>
-    <h2 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-slate-800">
+    <h2 class="font-fantasy text-5xl md:text-6xl lg:text-7xl font-bold text-slate-800">
       技术<span class="text-brand-500">亮点</span>
     </h2>
     <p class="text-slate-500 text-lg mt-4 max-w-xl">华测导航、海微科技、本初子午、博彦科技 — 四段实习关键成果盘点。</p>
+  </div>
+
+  <!-- 统计数字 -->
+  <div class="px-4 lg:px-16 xl:px-32 2xl:px-44 mb-10 reveal flex flex-wrap gap-6">
+    <div class="flex items-baseline gap-1">
+      <span class="text-3xl md:text-4xl font-bold text-brand-500 tabular-nums">4</span>
+      <span class="text-slate-500 text-sm">段实习</span>
+    </div>
+    <div class="flex items-baseline gap-1">
+      <span class="text-3xl md:text-4xl font-bold text-brand-500 tabular-nums">300%</span>
+      <span class="text-slate-500 text-sm">效率提升</span>
+    </div>
+    <div class="flex items-baseline gap-1">
+      <span class="text-3xl md:text-4xl font-bold text-brand-500 tabular-nums">260+</span>
+      <span class="text-slate-500 text-sm">提交 Bug</span>
+    </div>
+    <div class="flex items-baseline gap-1">
+      <span class="text-3xl md:text-4xl font-bold text-brand-500 tabular-nums">10+</span>
+      <span class="text-slate-500 text-sm">自动化脚本</span>
+    </div>
   </div>
 
   <div class="scroller relative z-20 overflow-hidden scroll-mask" id="scroller-container">
@@ -28,12 +46,12 @@ const items = [...cards, ...cards];
       {items.map((c, i) => (
         <div class="flex-shrink-0 w-[300px] md:w-[350px] rounded-2xl p-6 text-white overflow-hidden relative scroll-card"
              style={{ backgroundColor: c.color }}>
-          <div class="opacity-10 text-8xl font-display font-bold absolute -right-4 -bottom-8 leading-none pointer-events-none select-none">{c.label[0]}</div>
+          <div class="opacity-10 text-8xl font-fantasy font-bold absolute -right-4 -bottom-8 leading-none pointer-events-none select-none">{c.label[0]}</div>
           <p class="text-white/80 text-sm mb-1 font-medium">{c.label}</p>
           <p class="text-white/90 text-lg font-semibold mb-6">{c.sub}</p>
           <div class="flex gap-8">
-            <div><p class="text-3xl font-bold">{c.v1}</p><p class="text-white/70 text-sm">{c.v1L}</p></div>
-            <div><p class="text-3xl font-bold">{c.v2}</p><p class="text-white/70 text-sm">{c.v2L}</p></div>
+            <div><p class="text-3xl font-bold tabular-nums">{c.v1}</p><p class="text-white/70 text-sm">{c.v1L}</p></div>
+            <div><p class="text-3xl font-bold tabular-nums">{c.v2}</p><p class="text-white/70 text-sm">{c.v2L}</p></div>
           </div>
         </div>
       ))}
@@ -41,23 +59,22 @@ const items = [...cards, ...cards];
   </div>
 
   <p class="px-4 lg:px-16 xl:px-32 2xl:px-44 text-slate-500 text-lg mt-10 reveal max-w-xl">
-    每段实习都在推动自动化测试落地：从本初子午的 SaaS 接口测试，到海微科技的车载 CAN 总线，再到华测导航的无人机全链路自动化 —— 测试效率提升 300%，1000 轮挂测实现无人值守。
+    每段实习都在推动自动化测试落地：从本初子午的 SaaS 接口测试，到海微科技的车载 CAN 总线，再到华测导航的无人机全链路自动化 —— 测试效率提升 <span class="hl-underline-static text-brand-700 font-semibold">300%</span>，<span class="hl-underline-static text-brand-700 font-semibold">1000</span> 轮挂测实现无人值守。
   </p>
 </section>
 
 <script>
-  // JS 实现真正无缝无限滚动
   (function() {
     const track = document.getElementById('scroll-track');
     const container = document.getElementById('scroller-container');
     if (!track || !container) return;
 
     let position = 0;
-    let speed = 0.5; // 像素/帧
+    let speed = 0.5;
     let isPaused = false;
     let rafId = null;
+    let cardSetWidth = 0;
 
-    // 计算单组卡片总宽度（包括 gap）
     function getCardSetWidth() {
       const cards = track.querySelectorAll('.scroll-card');
       const halfCount = cards.length / 2;
@@ -65,18 +82,15 @@ const items = [...cards, ...cards];
       for (let i = 0; i < halfCount; i++) {
         const card = cards[i];
         const rect = card.getBoundingClientRect();
-        const gap = 16; // gap-4 = 1rem = 16px
+        const gap = 16;
         width += rect.width + gap;
       }
-      return width - 16; // 减去最后一个 gap
+      return Math.max(width - 16, 1);
     }
-
-    let cardSetWidth = 0;
 
     function animate() {
       if (!isPaused) {
         position -= speed;
-        // 当滚动超过一组宽度时，无缝重置
         if (Math.abs(position) >= cardSetWidth) {
           position = 0;
         }
@@ -85,26 +99,15 @@ const items = [...cards, ...cards];
       rafId = requestAnimationFrame(animate);
     }
 
-    // 初始化
     function init() {
       cardSetWidth = getCardSetWidth();
-      // 鼠标悬停暂停
       container.addEventListener('mouseenter', () => isPaused = true);
       container.addEventListener('mouseleave', () => isPaused = false);
-      // 开始动画
       rafId = requestAnimationFrame(animate);
     }
 
-    // 等待布局完成
-    if (document.readyState === 'complete') {
-      init();
-    } else {
-      window.addEventListener('load', init);
-    }
-
-    // 清理
-    window.addEventListener('beforeunload', () => {
-      if (rafId) cancelAnimationFrame(rafId);
-    });
+    if (document.readyState === 'complete') init();
+    else window.addEventListener('load', init);
+    window.addEventListener('beforeunload', () => { if (rafId) cancelAnimationFrame(rafId); });
   })();
 </script>

@@ -1,5 +1,4 @@
 ---
-// Skills — 真实数据: python, c, 测试工具等
 const categories = [
   {
     name: "编程语言",
@@ -44,7 +43,7 @@ const tools = ["Xmind", "Postman", "Apifox", "JMeter", "DBeaver", "Git", "VS Cod
 
   <div class="reveal mb-16">
     <p class="text-brand-500 text-sm font-medium tracking-wider uppercase mb-3">Skills</p>
-    <h2 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-slate-800">
+    <h2 class="font-fantasy text-5xl md:text-6xl lg:text-7xl font-bold text-slate-800">
       技术<span class="text-brand-500">能力</span>
     </h2>
     <p class="text-slate-500 text-lg mt-4 max-w-xl">测试开发 + 前端开发的全方位技术栈积累。</p>
@@ -62,11 +61,11 @@ const tools = ["Xmind", "Postman", "Apifox", "JMeter", "DBeaver", "Git", "VS Cod
             <div>
               <div class="flex justify-between text-sm mb-1">
                 <span class="text-slate-600 font-medium">{s.name}</span>
-                <span class="text-slate-400 font-mono">{s.level}%</span>
+                <span class="text-slate-400 font-mono text-xs tabular-nums">{s.level}%</span>
               </div>
-              <div class="h-1.5 bg-slate-200/60 rounded-full overflow-hidden">
+              <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
                 <div class="h-full rounded-full transition-all duration-700 ease-out"
-                     style={`width:${s.level}%;background:${s.color};box-shadow:0 0 6px ${s.color}60;`}></div>
+                     style={`background: linear-gradient(to right, ${s.color}, ${s.color}dd); width:${s.level}%`}></div>
               </div>
             </div>
           ))}
@@ -78,11 +77,11 @@ const tools = ["Xmind", "Postman", "Apifox", "JMeter", "DBeaver", "Git", "VS Cod
   <!-- 工具标签云 -->
   <div class="mt-12 reveal">
     <div class="text-center mb-6">
-      <h3 class="text-lg font-semibold text-slate-800 mb-2">常用工具</h3>
+      <h3 class="text-lg font-semibold text-slate-800 mb-2"><span class="text-brand-500 mr-1">#</span>常用工具</h3>
     </div>
     <div class="flex flex-wrap justify-center gap-3">
       {tools.map(t => (
-        <span class="px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:text-brand-500 hover:border-brand-300 hover:bg-brand-50 transition-all cursor-default shadow-sm">{t}</span>
+        <span class="px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:text-brand-500 hover:border-brand-300 hover:bg-brand-50/50 transition-all cursor-default shadow-sm text-sm">{t}</span>
       ))}
     </div>
   </div>
