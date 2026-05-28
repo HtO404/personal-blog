@@ -114,83 +114,89 @@ const bubbles = [
       setTimeout(() => { rt.textContent = roles[ri]; rt.style.opacity = '1'; rt.style.transform = 'translateY(0)'; }, 200); }
   }, 3000);
 
-  // 3D 追踪 - 立体证件照卡片
+  // 3D 追踪 - 立体证件照卡片（移动端禁用）
   const card = document.getElementById('hero-card');
-  if (card) {
+  if (card && window.innerWidth >= 768) {
     const wrap = card.closest('.card-3d-wrap');
+    let ticking = false;
     wrap.addEventListener('mousemove', (e) => {
-      const r = wrap.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width - 0.5);
-      const y = ((e.clientY - r.top) / r.height - 0.5);
-      card.style.transform = `perspective(800px) rotateY(${-8 + x * 16}deg) rotateX(${5 - y * 10}deg)`;
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const r = wrap.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width - 0.5);
+        const y = ((e.clientY - r.top) / r.height - 0.5);
+        card.style.transform = `perspective(800px) rotateY(${-8 + x * 16}deg) rotateX(${5 - y * 10}deg)`;
+        ticking = false;
+      });
     });
     wrap.addEventListener('mouseleave', () => {
       card.style.transform = 'perspective(800px) rotateY(-8deg) rotateX(5deg)';
     });
   }
 
-        // ---- 气泡动画 - 3D 球面环绕 + 拖拽交互 ----
+  // ---- 气泡动画 - 单 rAF 循环（性能优化）----
   const bubbleWraps = document.querySelectorAll(".orbit-bubble-wrap");
-  
   const isMobile = () => window.innerWidth < 768;
-  
+
+  const bubblesData = [];
   bubbleWraps.forEach((wrap) => {
     const radiusFull = parseFloat(wrap.dataset.radius);
     const radiusSm = parseFloat(getComputedStyle(wrap).getPropertyValue('--radius-sm')) || radiusFull * 0.7;
-    let radius = isMobile() ? radiusSm : radiusFull;
     const phiDeg = parseFloat(wrap.dataset.phi);
     const speed = parseFloat(wrap.dataset.speed);
     const startTheta = parseFloat(wrap.dataset.startTheta);
-    
-    // 窗口大小变化时更新半径
-    const updateRadius = () => {
-      radius = isMobile() ? radiusSm : radiusFull;
-    };
-    window.addEventListener('resize', updateRadius);
 
-    const phiRad = phiDeg * Math.PI / 180;
-    let theta = startTheta;
-    let lastTime = performance.now();
-    let paused = false;
-    let rafId = null;
-    let dragging = false;
-    let dragOffsetX = 0, dragOffsetY = 0;
-    let dragStartX = 0, dragStartY = 0;
-    let returnAnimId = null;
+    bubblesData.push({
+      wrap,
+      radiusFull,
+      radiusSm,
+      phiDeg,
+      phiRad: phiDeg * Math.PI / 180,
+      speed,
+      theta: startTheta,
+      paused: false,
+      dragging: false,
+      dragOffsetX: 0, dragOffsetY: 0,
+      returnAnimId: null,
+      inner: wrap.querySelector(".orbit-bubble-inner"),
+    });
+  });
 
-    const inner = wrap.querySelector(".orbit-bubble-inner");
+  const updateAllRadii = () => {
+    const mobile = isMobile();
+    bubblesData.forEach(b => { b.currentRadius = mobile ? b.radiusSm : b.radiusFull; });
+  };
+  updateAllRadii();
+  window.addEventListener('resize', updateAllRadii);
 
-    // ---- 鼠标拖拽 ----
+  // ---- 拖拽事件（每个气泡独立）----
+  bubblesData.forEach((b) => {
+    const { wrap } = b;
     function onPointerDown(e) {
-      paused = true;
-      dragging = true;
-      if (returnAnimId) { cancelAnimationFrame(returnAnimId); returnAnimId = null; }
+      b.paused = true;
+      b.dragging = true;
+      if (b.returnAnimId) { cancelAnimationFrame(b.returnAnimId); b.returnAnimId = null; }
       wrap.style.transition = "none";
       const rect = wrap.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      dragOffsetX = e.clientX - cx;
-      dragOffsetY = e.clientY - cy;
-      dragStartX = cx;
-      dragStartY = cy;
-      wrap.style.zIndex = 999;
+      b.dragOffsetX = e.clientX - (rect.left + rect.width / 2);
+      b.dragOffsetY = e.clientY - (rect.top + rect.height / 2);
+      wrap.style.zIndex = "999";
       wrap.style.filter = "drop-shadow(0 12px 32px rgba(0,0,0,0.2))";
       document.addEventListener("pointermove", onPointerMove);
       document.addEventListener("pointerup", onPointerUp);
     }
-
     function onPointerMove(e) {
-      if (!dragging) return;
+      if (!b.dragging) return;
       const scene = wrap.closest(".orbit-scene");
       const sr = scene.getBoundingClientRect();
-      const nx = e.clientX - sr.left - sr.width / 2 - dragOffsetX;
-      const ny = e.clientY - sr.top - sr.height / 2 - dragOffsetY;
-      wrap.style.transform = `translate(calc(-50% + ${nx}px), calc(-50% + ${ny}px)) translateZ(120px) scale(1.15)`;
+      const nx = e.clientX - sr.left - sr.width / 2 - b.dragOffsetX;
+      const ny = e.clientY - sr.top - sr.height / 2 - b.dragOffsetY;
+      wrap.style.transform = `translate3d(calc(-50% + ${nx}px), calc(-50% + ${ny}px), 120px) scale(1.15)`;
       wrap.style.opacity = "1";
     }
-
     function onPointerUp(e) {
-      dragging = false;
+      b.dragging = false;
       document.removeEventListener("pointermove", onPointerMove);
       document.removeEventListener("pointerup", onPointerUp);
       const scene = wrap.closest(".orbit-scene");
@@ -198,74 +204,62 @@ const bubbles = [
       const cx = e.clientX - sr.left - sr.width / 2;
       const cy = e.clientY - sr.top - sr.height / 2;
       const rawAngle = Math.atan2(cy, cx) * 180 / Math.PI;
-      theta = ((rawAngle % 360) + 360) % 360;
+      b.theta = ((rawAngle % 360) + 360) % 360;
 
       let progress = 0;
-      const startZ = 120;
-      const startScale = 1.15;
-      const startCx = cx;
-      const startCy = cy;
-
+      const startCx = cx, startCy = cy, startZ = 120, startScale = 1.15;
       function returnAnim() {
         progress += 0.04;
         if (progress >= 1) {
           progress = 1;
-          returnAnimId = null;
+          b.returnAnimId = null;
           wrap.style.transition = "";
-          paused = false;
+          wrap.style.zIndex = "";
+          wrap.style.filter = "";
+          wrap.style.opacity = "";
+          b.paused = false;
           return;
         }
         const t = 1 - Math.pow(1 - progress, 3);
-        const curX = startCx * (1 - t);
-        const curY = startCy * (1 - t);
-        const curZ = startZ * (1 - t);
-        const curScale = 1 + (startScale - 1) * (1 - t);
-        wrap.style.transform = `translate(calc(-50% + ${curX}px), calc(-50% + ${curY}px)) translateZ(${curZ}px) scale(${curScale})`;
-        wrap.style.opacity = 1 - (1 - t) * 0.3;
-        returnAnimId = requestAnimationFrame(returnAnim);
+        wrap.style.transform = `translate3d(calc(-50% + ${startCx * (1 - t)}px), calc(-50% + ${startCy * (1 - t)}px), ${startZ * (1 - t)}px) scale(${1 + (startScale - 1) * (1 - t)})`;
+        wrap.style.opacity = `${1 - (1 - t) * 0.3}`;
+        b.returnAnimId = requestAnimationFrame(returnAnim);
       }
-      returnAnimId = requestAnimationFrame(returnAnim);
+      b.returnAnimId = requestAnimationFrame(returnAnim);
     }
-
     wrap.addEventListener("pointerdown", onPointerDown);
-
-    // ---- 悬停暂停 ----
-    wrap.addEventListener("mouseenter", () => { if (!dragging) paused = true; });
-    wrap.addEventListener("mouseleave", () => { if (!dragging) paused = false; });
-
-    function animate(currentTime) {
-      if (dragging) {
-        rafId = requestAnimationFrame(animate);
-        return;
-      }
-      if (!paused) {
-        const deltaTime = (currentTime - lastTime) / 1000;
-        lastTime = currentTime;
-        theta += (360 / speed) * deltaTime;
-        if (theta >= 360) theta -= 360;
-      }
-      const thetaRad = theta * Math.PI / 180;
-
-      // 球面坐标: φ=极角(高度), θ=方位角(水平旋转)
-      const x = radius * Math.sin(phiRad) * Math.sin(thetaRad);
-      const y = -radius * Math.cos(phiRad);
-
-      const forward = Math.cos(thetaRad);
-      const smooth = (forward + 1) / 2;
-
-      const zIndex = Math.round(10 + smooth * 15);
-      const z = -100 + smooth * 180;
-      const scaleVal = 0.75 + smooth * 0.35;
-      const opacityVal = 0.6 + smooth * 0.4;
-      const shadowBlur = 4 + smooth * 20;
-
-      wrap.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) translateZ(${z}px) scale(${scaleVal})`;
-      wrap.style.zIndex = zIndex;
-      wrap.style.opacity = opacityVal;
-      if (!paused) {
-        wrap.style.filter = `drop-shadow(0 ${4 + smooth * 8}px ${shadowBlur}px rgba(0,0,0,0.08))`;
-      }
-      rafId = requestAnimationFrame(animate);
-    }
-    rafId = requestAnimationFrame(animate);
+    wrap.addEventListener("mouseenter", () => { if (!b.dragging) b.paused = true; });
+    wrap.addEventListener("mouseleave", () => { if (!b.dragging) b.paused = false; });
   });
+
+  // ---- 合并后的单个 rAF 循环 ----
+  let lastTime = performance.now();
+
+  function animateAll(currentTime) {
+    const deltaTime = (currentTime - lastTime) / 1000;
+    lastTime = currentTime;
+
+    for (let i = 0; i < bubblesData.length; i++) {
+      const b = bubblesData[i];
+      if (b.dragging) continue;
+      if (!b.paused) {
+        b.theta += (360 / b.speed) * deltaTime;
+        if (b.theta >= 360) b.theta -= 360;
+      }
+      const thetaRad = b.theta * Math.PI / 180;
+      const r = b.currentRadius;
+      const x = r * Math.sin(b.phiRad) * Math.sin(thetaRad);
+      const y = -r * Math.cos(b.phiRad);
+      const smooth = (Math.cos(thetaRad) + 1) / 2;
+
+      // 只用 transform 驱动，z-index 和 opacity 用 scale 表达前后关系
+      const zVal = -100 + smooth * 180;
+      const scaleVal = 0.75 + smooth * 0.35;
+
+      b.wrap.style.transform = `translate3d(calc(-50% + ${x}px), calc(-50% + ${y}px), ${zVal}px) scale(${scaleVal})`;
+      b.wrap.style.zIndex = String(Math.round(10 + smooth * 15));
+      b.wrap.style.opacity = String(0.55 + smooth * 0.45);
+    }
+    requestAnimationFrame(animateAll);
+  }
+  requestAnimationFrame(animateAll);
